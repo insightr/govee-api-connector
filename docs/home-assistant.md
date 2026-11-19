@@ -89,9 +89,9 @@ helpers, scripts and one automation, so it does not depend on `light:` or
 
 ### What it does
 
-- When a race, sprint, qualifying or sprint qualifying session goes live and
-  the switch is on, it saves what the lights were doing and shows the track
-  status.
+- When a session goes live (practice, qualifying, sprint qualifying, sprint
+  or race) and the switch is on, it saves what the lights were doing and
+  shows the track status.
 - Each change of track status changes the lights:
 
   | Track status | Lights |
@@ -104,7 +104,10 @@ helpers, scripts and one automation, so it does not depend on `light:` or
 - When the session ends, the lights go white for a minute and then return to
   what they were doing before.
 - Turning the switch off mid-session restores the lights immediately.
-- Practice sessions are ignored.
+- **Quiet hours:** between 21:00 and 07:00 (Home Assistant's local time) a
+  session never drives the lights. A session still running at 21:00 hands
+  the lights back at 21:00; a session already live at 07:00 starts then.
+  Rehearsal is not affected by quiet hours.
 
 ### Install
 
@@ -194,8 +197,11 @@ its own values back.
   integration's own *Live Delay* setting, which delays all its sensors. The
   package's *F1 lights extra delay* adds further seconds for the lights only;
   leave it at 0 if Live Delay is set.
-- **Which sessions** is one line in the `F1 lights - controller` automation,
-  marked `EDIT`.
+- **Which sessions** is one list in the `F1 lights - controller` automation,
+  marked `EDIT`. Remove the three `Practice` entries to ignore practice.
+- **Quiet hours** are `quiet_start` and `quiet_end` in the same automation,
+  plus the two trigger times just above them. Change both places together.
+  They use Home Assistant's time zone (Settings > System > General).
 
 ### Limits
 

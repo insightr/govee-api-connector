@@ -154,23 +154,45 @@ automation:
           - sensor.f1_session_status
           - sensor.f1_current_session
           - sensor.f1_track_status
+      # The start and end of quiet hours. EDIT: keep these two times in step
+      # with quiet_start and quiet_end below.
+      - trigger: time
+        at:
+          - "21:00:00"
+          - "07:00:00"
     conditions:
-      # Ignore updates where only attributes changed.
+      # Ignore sensor updates where only attributes changed.
       - condition: template
         value_template: >
-          {{ trigger.from_state is none or trigger.to_state is none
+          {{ trigger.platform != 'state'
+             or trigger.from_state is none or trigger.to_state is none
              or trigger.from_state.state != trigger.to_state.state }}
     actions:
+      # Quiet hours: a session never drives the lights from quiet_start until
+      # quiet_end (hours, 24-hour clock, Home Assistant's local time).
+      # Rehearsal is not affected. EDIT: change the two hours here and the two
+      # trigger times above.
+      - variables:
+          quiet_start: 21
+          quiet_end: 7
+      - variables:
+          quiet: >
+            {% set hour = now().hour %}
+            {{ (hour >= quiet_start or hour < quiet_end) if quiet_start > quiet_end
+               else (quiet_start <= hour < quiet_end) }}
       - variables:
           # Should the lights be following the track right now?
           # "suspended" (red flag) and "break" (between qualifying parts) count as running.
-          # EDIT: add 'Practice 1', 'Practice 2', 'Practice 3' to include practice.
+          # EDIT: the list of sessions that count. Remove the three Practice
+          # entries to ignore practice.
           wanted: >
             {{ is_state('input_boolean.f1_lights_enabled', 'on')
                and (is_state('input_boolean.f1_lights_rehearsal', 'on')
-                    or (states('sensor.f1_session_status') in ['live', 'suspended', 'break']
+                    or (not quiet
+                        and states('sensor.f1_session_status') in ['live', 'suspended', 'break']
                         and states('sensor.f1_current_session') in
-                          ['Race', 'Sprint', 'Qualifying', 'Sprint Qualifying'])) }}
+                          ['Race', 'Sprint', 'Qualifying', 'Sprint Qualifying',
+                           'Practice 1', 'Practice 2', 'Practice 3'])) }}
           running: "{{ is_state('input_boolean.f1_lights_running', 'on') }}"
           # The status to show: the dropdown in rehearsal, otherwise the F1 Sensor.
           track_status: >
@@ -178,7 +200,8 @@ automation:
                if is_state('input_boolean.f1_lights_rehearsal', 'on')
                else states('sensor.f1_track_status') }}
           status_changed: >
-            {{ trigger.entity_id in ['sensor.f1_track_status',
+            {{ trigger.platform == 'state'
+               and trigger.entity_id in ['sensor.f1_track_status',
                  'input_select.f1_lights_rehearsal_status',
                  'input_boolean.f1_lights_rehearsal'] }}
           delay_seconds: "{{ states('input_number.f1_lights_delay') | float(0) }}"
