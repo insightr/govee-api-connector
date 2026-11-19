@@ -16,6 +16,11 @@ input_boolean:
   f1_lights_rehearsal:
     name: F1 lights rehearsal
     icon: mdi:test-tube
+  # Set by the automation while the lights are following the track.
+  # Shows what it is doing; do not switch it by hand.
+  f1_lights_running:
+    name: F1 lights running
+    icon: mdi:car-sports
 
 input_select:
   f1_lights_rehearsal_status:
@@ -32,32 +37,6 @@ input_number:
     step: 1
     unit_of_measurement: s
     mode: box
-
-# ---- When the lights should be following the track ---------------------------
-template:
-  - binary_sensor:
-      - name: F1 lights active
-        unique_id: f1_lights_active
-        icon: mdi:car-sports
-        # On while the switch is on and either rehearsal is on or a chosen
-        # session is running. "suspended" (red flag) and "break" (between
-        # qualifying parts) keep it on.
-        state: >
-          {{ is_state('input_boolean.f1_lights_enabled', 'on')
-             and (is_state('input_boolean.f1_lights_rehearsal', 'on')
-                  or (states('sensor.f1_session_status') in ['live', 'suspended', 'break']
-                      and states('sensor.f1_current_session') in
-                        ['Race', 'Sprint', 'Qualifying', 'Sprint Qualifying'])) }}
-        # EDIT: add 'Practice 1', 'Practice 2', 'Practice 3' above to include practice.
-  - sensor:
-      - name: F1 lights track status
-        unique_id: f1_lights_track_status
-        icon: mdi:flag
-        # The status the lights follow: the dropdown in rehearsal, else the F1 Sensor.
-        state: >
-          {{ states('input_select.f1_lights_rehearsal_status')
-             if is_state('input_boolean.f1_lights_rehearsal', 'on')
-             else states('sensor.f1_track_status') }}
 
 script:
   f1_lights_save:
@@ -99,7 +78,7 @@ script:
         example: YELLOW
     sequence:
       - variables:
-          track_status: "{{ status | default(states('sensor.f1_lights_track_status'), true) }}"
+          track_status: "{{ status | default(states('sensor.f1_track_status'), true) }}"
       # EDIT: colours are [red, green, blue], each 0 to 255. brightness_pct is 1 to 100.
       - choose:
           - conditions: "{{ track_status == 'CLEAR' }}"
@@ -161,62 +140,89 @@ script:
       - action: script.f1_lights_restore
 
 automation:
-  - id: f1_lights_session_start
-    alias: F1 lights - session start
-    mode: single
-    triggers:
-      - trigger: state
-        entity_id: binary_sensor.f1_lights_active
-        from: "off"
-        to: "on"
-    actions:
-      - action: script.f1_lights_save
-      - action: script.f1_lights_apply
-
-  - id: f1_lights_track_status
-    alias: F1 lights - track status change
-    # restart: a newer status replaces one still waiting out the delay.
+  - id: f1_lights_controller
+    alias: F1 lights - controller
+    description: Follows the track status on the F1 lights during a session or rehearsal.
+    # restart: a newer change replaces one still waiting out a delay.
     mode: restart
     triggers:
       - trigger: state
-        entity_id: sensor.f1_lights_track_status
+        entity_id:
+          - input_boolean.f1_lights_enabled
+          - input_boolean.f1_lights_rehearsal
+          - input_select.f1_lights_rehearsal_status
+          - sensor.f1_session_status
+          - sensor.f1_current_session
+          - sensor.f1_track_status
     conditions:
-      - condition: state
-        entity_id: binary_sensor.f1_lights_active
-        state: "on"
+      # Ignore updates where only attributes changed.
       - condition: template
-        value_template: "{{ trigger.to_state.state != trigger.from_state.state }}"
+        value_template: >
+          {{ trigger.from_state is none or trigger.to_state is none
+             or trigger.from_state.state != trigger.to_state.state }}
     actions:
-      - delay:
-          seconds: "{{ states('input_number.f1_lights_delay') | float(0) }}"
-      - action: script.f1_lights_apply
-
-  - id: f1_lights_session_end
-    alias: F1 lights - session end
-    mode: restart
-    triggers:
-      - trigger: state
-        entity_id: binary_sensor.f1_lights_active
-        from: "on"
-        to: "off"
-    actions:
-      # If the session finished (rather than a switch being turned off),
-      # show white for a minute first.
-      - if:
-          - condition: state
-            entity_id: input_boolean.f1_lights_enabled
-            state: "on"
-          - condition: state
-            entity_id: sensor.f1_session_status
-            state: [finished, finalised, ended]
-        then:
-          - delay:
-              seconds: "{{ states('input_number.f1_lights_delay') | float(0) }}"
-          - action: light.turn_on
-            target:
-              entity_id: *f1_lights
-            data:
-              color_temp_kelvin: 4000
-              brightness_pct: 100
-          - delay: 60
-      - action: script.f1_lights_restore
+      - variables:
+          # Should the lights be following the track right now?
+          # "suspended" (red flag) and "break" (between qualifying parts) count as running.
+          # EDIT: add 'Practice 1', 'Practice 2', 'Practice 3' to include practice.
+          wanted: >
+            {{ is_state('input_boolean.f1_lights_enabled', 'on')
+               and (is_state('input_boolean.f1_lights_rehearsal', 'on')
+                    or (states('sensor.f1_session_status') in ['live', 'suspended', 'break']
+                        and states('sensor.f1_current_session') in
+                          ['Race', 'Sprint', 'Qualifying', 'Sprint Qualifying'])) }}
+          running: "{{ is_state('input_boolean.f1_lights_running', 'on') }}"
+          # The status to show: the dropdown in rehearsal, otherwise the F1 Sensor.
+          track_status: >
+            {{ states('input_select.f1_lights_rehearsal_status')
+               if is_state('input_boolean.f1_lights_rehearsal', 'on')
+               else states('sensor.f1_track_status') }}
+          status_changed: >
+            {{ trigger.entity_id in ['sensor.f1_track_status',
+                 'input_select.f1_lights_rehearsal_status',
+                 'input_boolean.f1_lights_rehearsal'] }}
+          delay_seconds: "{{ states('input_number.f1_lights_delay') | float(0) }}"
+      - choose:
+          # Starting: remember the lighting, then show the track status.
+          - conditions: "{{ wanted and not running }}"
+            sequence:
+              - action: script.f1_lights_save
+              - action: input_boolean.turn_on
+                target:
+                  entity_id: input_boolean.f1_lights_running
+              - action: script.f1_lights_apply
+                data:
+                  status: "{{ track_status }}"
+          # Running and the status changed: wait out the delay, then show it.
+          - conditions: "{{ wanted and running and status_changed }}"
+            sequence:
+              - delay:
+                  seconds: "{{ delay_seconds }}"
+              - action: script.f1_lights_apply
+                data:
+                  status: "{{ track_status }}"
+          # Stopping: put the lighting back. If the session finished (rather
+          # than a switch being turned off), show white for a minute first.
+          - conditions: "{{ not wanted and running }}"
+            sequence:
+              - if:
+                  - condition: state
+                    entity_id: input_boolean.f1_lights_enabled
+                    state: "on"
+                  - condition: state
+                    entity_id: sensor.f1_session_status
+                    state: [finished, finalised, ended]
+                then:
+                  - delay:
+                      seconds: "{{ delay_seconds }}"
+                  - action: light.turn_on
+                    target:
+                      entity_id: *f1_lights
+                    data:
+                      color_temp_kelvin: 4000
+                      brightness_pct: 100
+                  - delay: 60
+              - action: script.f1_lights_restore
+              - action: input_boolean.turn_off
+                target:
+                  entity_id: input_boolean.f1_lights_running

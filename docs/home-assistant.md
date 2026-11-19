@@ -83,7 +83,9 @@ with them.
 ## Part 2: F1 lighting package
 
 `homeassistant/packages/f1_lights.yaml` contains everything: the list of
-bulbs, a dashboard switch, a delay setting and the automations.
+bulbs, dashboard switches, a delay setting and the automation. It uses only
+helpers, scripts and one automation, so it does not depend on `light:` or
+`template:` configuration.
 
 ### What it does
 
@@ -130,7 +132,7 @@ bulbs, a dashboard switch, a delay setting and the automations.
    that no line says `unknown`:
 
    ```
-   {% for e in ['input_boolean.f1_lights_enabled', 'input_boolean.f1_lights_rehearsal', 'input_select.f1_lights_rehearsal_status', 'input_number.f1_lights_delay', 'binary_sensor.f1_lights_active', 'sensor.f1_lights_track_status', 'script.f1_lights_apply', 'script.f1_lights_save', 'script.f1_lights_restore', 'script.f1_lights_test', 'automation.f1_lights_session_start', 'automation.f1_lights_track_status_change', 'automation.f1_lights_session_end'] %}
+   {% for e in ['input_boolean.f1_lights_enabled', 'input_boolean.f1_lights_rehearsal', 'input_boolean.f1_lights_running', 'input_select.f1_lights_rehearsal_status', 'input_number.f1_lights_delay', 'script.f1_lights_apply', 'script.f1_lights_save', 'script.f1_lights_restore', 'script.f1_lights_test', 'automation.f1_lights_controller'] %}
    {{ e }}: {{ states(e) }}
    {% endfor %}
    ```
@@ -148,9 +150,11 @@ bulbs, a dashboard switch, a delay setting and the automations.
      - input_boolean.f1_lights_rehearsal
      - input_select.f1_lights_rehearsal_status
      - input_number.f1_lights_delay
-     - binary_sensor.f1_lights_active
-     - sensor.f1_lights_track_status
+     - input_boolean.f1_lights_running
    ```
+
+   *F1 lights running* is set by the automation to show that it is following
+   the track. Leave it alone.
 
    Use this card to flip the switches. Typing a state into Developer Tools >
    States is not the same as turning a switch on.
@@ -190,8 +194,8 @@ its own values back.
   integration's own *Live Delay* setting, which delays all its sensors. The
   package's *F1 lights extra delay* adds further seconds for the lights only;
   leave it at 0 if Live Delay is set.
-- **Which sessions** is one line in the `F1 lights active` template, marked
-  `EDIT`.
+- **Which sessions** is one line in the `F1 lights - controller` automation,
+  marked `EDIT`.
 
 ### Limits
 
