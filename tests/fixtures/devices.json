@@ -1,0 +1,3484 @@
+{
+ "code": 200,
+ "message": "success",
+ "data": [
+  {
+   "sku": "H600D",
+   "device": "AA:BB:CC:DD:EE:FF:00:01",
+   "deviceName": "Garden LH back bottom",
+   "type": "devices.types.light",
+   "capabilities": [
+    {
+     "type": "devices.capabilities.on_off",
+     "instance": "powerSwitch",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": [
+       {
+        "name": "on",
+        "value": 1
+       },
+       {
+        "name": "off",
+        "value": 0
+       }
+      ]
+     }
+    },
+    {
+     "type": "devices.capabilities.range",
+     "instance": "brightness",
+     "parameters": {
+      "unit": "unit.percent",
+      "dataType": "INTEGER",
+      "range": {
+       "min": 1,
+       "max": 100,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.color_setting",
+     "instance": "colorRgb",
+     "parameters": {
+      "dataType": "INTEGER",
+      "range": {
+       "min": 0,
+       "max": 16777215,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.color_setting",
+     "instance": "colorTemperatureK",
+     "parameters": {
+      "dataType": "INTEGER",
+      "range": {
+       "min": 2700,
+       "max": 6500,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.music_setting",
+     "instance": "musicMode",
+     "parameters": {
+      "dataType": "STRUCT",
+      "fields": [
+       {
+        "fieldName": "musicMode",
+        "dataType": "ENUM",
+        "options": [
+         {
+          "name": "Energic",
+          "value": 5
+         },
+         {
+          "name": "Rhythm",
+          "value": 3
+         },
+         {
+          "name": "Spectrum",
+          "value": 6
+         },
+         {
+          "name": "Rolling",
+          "value": 4
+         }
+        ],
+        "required": true
+       },
+       {
+        "unit": "unit.percent",
+        "fieldName": "sensitivity",
+        "dataType": "INTEGER",
+        "range": {
+         "min": 0,
+         "max": 100,
+         "precision": 1
+        },
+        "required": true
+       },
+       {
+        "fieldName": "autoColor",
+        "dataType": "ENUM",
+        "options": [
+         {
+          "name": "on",
+          "value": 1
+         },
+         {
+          "name": "off",
+          "value": 0
+         }
+        ],
+        "required": false
+       },
+       {
+        "fieldName": "rgb",
+        "dataType": "INTEGER",
+        "range": {
+         "min": 0,
+         "max": 16777215,
+         "precision": 1
+        },
+        "required": false
+       }
+      ]
+     }
+    },
+    {
+     "type": "devices.capabilities.dynamic_scene",
+     "instance": "lightScene",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": []
+     }
+    },
+    {
+     "type": "devices.capabilities.dynamic_scene",
+     "instance": "diyScene",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": []
+     }
+    }
+   ]
+  },
+  {
+   "sku": "H600D",
+   "device": "AA:BB:CC:DD:EE:FF:00:02",
+   "deviceName": "Garden LH back top",
+   "type": "devices.types.light",
+   "capabilities": [
+    {
+     "type": "devices.capabilities.on_off",
+     "instance": "powerSwitch",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": [
+       {
+        "name": "on",
+        "value": 1
+       },
+       {
+        "name": "off",
+        "value": 0
+       }
+      ]
+     }
+    },
+    {
+     "type": "devices.capabilities.range",
+     "instance": "brightness",
+     "parameters": {
+      "unit": "unit.percent",
+      "dataType": "INTEGER",
+      "range": {
+       "min": 1,
+       "max": 100,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.color_setting",
+     "instance": "colorRgb",
+     "parameters": {
+      "dataType": "INTEGER",
+      "range": {
+       "min": 0,
+       "max": 16777215,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.color_setting",
+     "instance": "colorTemperatureK",
+     "parameters": {
+      "dataType": "INTEGER",
+      "range": {
+       "min": 2700,
+       "max": 6500,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.music_setting",
+     "instance": "musicMode",
+     "parameters": {
+      "dataType": "STRUCT",
+      "fields": [
+       {
+        "fieldName": "musicMode",
+        "dataType": "ENUM",
+        "options": [
+         {
+          "name": "Energic",
+          "value": 5
+         },
+         {
+          "name": "Rhythm",
+          "value": 3
+         },
+         {
+          "name": "Spectrum",
+          "value": 6
+         },
+         {
+          "name": "Rolling",
+          "value": 4
+         }
+        ],
+        "required": true
+       },
+       {
+        "unit": "unit.percent",
+        "fieldName": "sensitivity",
+        "dataType": "INTEGER",
+        "range": {
+         "min": 0,
+         "max": 100,
+         "precision": 1
+        },
+        "required": true
+       },
+       {
+        "fieldName": "autoColor",
+        "dataType": "ENUM",
+        "options": [
+         {
+          "name": "on",
+          "value": 1
+         },
+         {
+          "name": "off",
+          "value": 0
+         }
+        ],
+        "required": false
+       },
+       {
+        "fieldName": "rgb",
+        "dataType": "INTEGER",
+        "range": {
+         "min": 0,
+         "max": 16777215,
+         "precision": 1
+        },
+        "required": false
+       }
+      ]
+     }
+    },
+    {
+     "type": "devices.capabilities.dynamic_scene",
+     "instance": "lightScene",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": []
+     }
+    },
+    {
+     "type": "devices.capabilities.dynamic_scene",
+     "instance": "diyScene",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": []
+     }
+    }
+   ]
+  },
+  {
+   "sku": "H600D",
+   "device": "AA:BB:CC:DD:EE:FF:00:03",
+   "deviceName": "Garden RH front top",
+   "type": "devices.types.light",
+   "capabilities": [
+    {
+     "type": "devices.capabilities.on_off",
+     "instance": "powerSwitch",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": [
+       {
+        "name": "on",
+        "value": 1
+       },
+       {
+        "name": "off",
+        "value": 0
+       }
+      ]
+     }
+    },
+    {
+     "type": "devices.capabilities.range",
+     "instance": "brightness",
+     "parameters": {
+      "unit": "unit.percent",
+      "dataType": "INTEGER",
+      "range": {
+       "min": 1,
+       "max": 100,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.color_setting",
+     "instance": "colorRgb",
+     "parameters": {
+      "dataType": "INTEGER",
+      "range": {
+       "min": 0,
+       "max": 16777215,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.color_setting",
+     "instance": "colorTemperatureK",
+     "parameters": {
+      "dataType": "INTEGER",
+      "range": {
+       "min": 2700,
+       "max": 6500,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.music_setting",
+     "instance": "musicMode",
+     "parameters": {
+      "dataType": "STRUCT",
+      "fields": [
+       {
+        "fieldName": "musicMode",
+        "dataType": "ENUM",
+        "options": [
+         {
+          "name": "Energic",
+          "value": 5
+         },
+         {
+          "name": "Rhythm",
+          "value": 3
+         },
+         {
+          "name": "Spectrum",
+          "value": 6
+         },
+         {
+          "name": "Rolling",
+          "value": 4
+         }
+        ],
+        "required": true
+       },
+       {
+        "unit": "unit.percent",
+        "fieldName": "sensitivity",
+        "dataType": "INTEGER",
+        "range": {
+         "min": 0,
+         "max": 100,
+         "precision": 1
+        },
+        "required": true
+       },
+       {
+        "fieldName": "autoColor",
+        "dataType": "ENUM",
+        "options": [
+         {
+          "name": "on",
+          "value": 1
+         },
+         {
+          "name": "off",
+          "value": 0
+         }
+        ],
+        "required": false
+       },
+       {
+        "fieldName": "rgb",
+        "dataType": "INTEGER",
+        "range": {
+         "min": 0,
+         "max": 16777215,
+         "precision": 1
+        },
+        "required": false
+       }
+      ]
+     }
+    },
+    {
+     "type": "devices.capabilities.dynamic_scene",
+     "instance": "lightScene",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": []
+     }
+    },
+    {
+     "type": "devices.capabilities.dynamic_scene",
+     "instance": "diyScene",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": []
+     }
+    }
+   ]
+  },
+  {
+   "sku": "H600D",
+   "device": "AA:BB:CC:DD:EE:FF:00:04",
+   "deviceName": "Garden LH front top",
+   "type": "devices.types.light",
+   "capabilities": [
+    {
+     "type": "devices.capabilities.on_off",
+     "instance": "powerSwitch",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": [
+       {
+        "name": "on",
+        "value": 1
+       },
+       {
+        "name": "off",
+        "value": 0
+       }
+      ]
+     }
+    },
+    {
+     "type": "devices.capabilities.range",
+     "instance": "brightness",
+     "parameters": {
+      "unit": "unit.percent",
+      "dataType": "INTEGER",
+      "range": {
+       "min": 1,
+       "max": 100,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.color_setting",
+     "instance": "colorRgb",
+     "parameters": {
+      "dataType": "INTEGER",
+      "range": {
+       "min": 0,
+       "max": 16777215,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.color_setting",
+     "instance": "colorTemperatureK",
+     "parameters": {
+      "dataType": "INTEGER",
+      "range": {
+       "min": 2700,
+       "max": 6500,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.music_setting",
+     "instance": "musicMode",
+     "parameters": {
+      "dataType": "STRUCT",
+      "fields": [
+       {
+        "fieldName": "musicMode",
+        "dataType": "ENUM",
+        "options": [
+         {
+          "name": "Energic",
+          "value": 5
+         },
+         {
+          "name": "Rhythm",
+          "value": 3
+         },
+         {
+          "name": "Spectrum",
+          "value": 6
+         },
+         {
+          "name": "Rolling",
+          "value": 4
+         }
+        ],
+        "required": true
+       },
+       {
+        "unit": "unit.percent",
+        "fieldName": "sensitivity",
+        "dataType": "INTEGER",
+        "range": {
+         "min": 0,
+         "max": 100,
+         "precision": 1
+        },
+        "required": true
+       },
+       {
+        "fieldName": "autoColor",
+        "dataType": "ENUM",
+        "options": [
+         {
+          "name": "on",
+          "value": 1
+         },
+         {
+          "name": "off",
+          "value": 0
+         }
+        ],
+        "required": false
+       },
+       {
+        "fieldName": "rgb",
+        "dataType": "INTEGER",
+        "range": {
+         "min": 0,
+         "max": 16777215,
+         "precision": 1
+        },
+        "required": false
+       }
+      ]
+     }
+    },
+    {
+     "type": "devices.capabilities.dynamic_scene",
+     "instance": "lightScene",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": []
+     }
+    },
+    {
+     "type": "devices.capabilities.dynamic_scene",
+     "instance": "diyScene",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": []
+     }
+    }
+   ]
+  },
+  {
+   "sku": "H600D",
+   "device": "AA:BB:CC:DD:EE:FF:00:05",
+   "deviceName": "Garden LH front bottom",
+   "type": "devices.types.light",
+   "capabilities": [
+    {
+     "type": "devices.capabilities.on_off",
+     "instance": "powerSwitch",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": [
+       {
+        "name": "on",
+        "value": 1
+       },
+       {
+        "name": "off",
+        "value": 0
+       }
+      ]
+     }
+    },
+    {
+     "type": "devices.capabilities.range",
+     "instance": "brightness",
+     "parameters": {
+      "unit": "unit.percent",
+      "dataType": "INTEGER",
+      "range": {
+       "min": 1,
+       "max": 100,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.color_setting",
+     "instance": "colorRgb",
+     "parameters": {
+      "dataType": "INTEGER",
+      "range": {
+       "min": 0,
+       "max": 16777215,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.color_setting",
+     "instance": "colorTemperatureK",
+     "parameters": {
+      "dataType": "INTEGER",
+      "range": {
+       "min": 2700,
+       "max": 6500,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.music_setting",
+     "instance": "musicMode",
+     "parameters": {
+      "dataType": "STRUCT",
+      "fields": [
+       {
+        "fieldName": "musicMode",
+        "dataType": "ENUM",
+        "options": [
+         {
+          "name": "Energic",
+          "value": 5
+         },
+         {
+          "name": "Rhythm",
+          "value": 3
+         },
+         {
+          "name": "Spectrum",
+          "value": 6
+         },
+         {
+          "name": "Rolling",
+          "value": 4
+         }
+        ],
+        "required": true
+       },
+       {
+        "unit": "unit.percent",
+        "fieldName": "sensitivity",
+        "dataType": "INTEGER",
+        "range": {
+         "min": 0,
+         "max": 100,
+         "precision": 1
+        },
+        "required": true
+       },
+       {
+        "fieldName": "autoColor",
+        "dataType": "ENUM",
+        "options": [
+         {
+          "name": "on",
+          "value": 1
+         },
+         {
+          "name": "off",
+          "value": 0
+         }
+        ],
+        "required": false
+       },
+       {
+        "fieldName": "rgb",
+        "dataType": "INTEGER",
+        "range": {
+         "min": 0,
+         "max": 16777215,
+         "precision": 1
+        },
+        "required": false
+       }
+      ]
+     }
+    },
+    {
+     "type": "devices.capabilities.dynamic_scene",
+     "instance": "lightScene",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": []
+     }
+    },
+    {
+     "type": "devices.capabilities.dynamic_scene",
+     "instance": "diyScene",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": []
+     }
+    }
+   ]
+  },
+  {
+   "sku": "H600D",
+   "device": "AA:BB:CC:DD:EE:FF:00:06",
+   "deviceName": "Garden RH front bottom",
+   "type": "devices.types.light",
+   "capabilities": [
+    {
+     "type": "devices.capabilities.on_off",
+     "instance": "powerSwitch",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": [
+       {
+        "name": "on",
+        "value": 1
+       },
+       {
+        "name": "off",
+        "value": 0
+       }
+      ]
+     }
+    },
+    {
+     "type": "devices.capabilities.range",
+     "instance": "brightness",
+     "parameters": {
+      "unit": "unit.percent",
+      "dataType": "INTEGER",
+      "range": {
+       "min": 1,
+       "max": 100,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.color_setting",
+     "instance": "colorRgb",
+     "parameters": {
+      "dataType": "INTEGER",
+      "range": {
+       "min": 0,
+       "max": 16777215,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.color_setting",
+     "instance": "colorTemperatureK",
+     "parameters": {
+      "dataType": "INTEGER",
+      "range": {
+       "min": 2700,
+       "max": 6500,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.music_setting",
+     "instance": "musicMode",
+     "parameters": {
+      "dataType": "STRUCT",
+      "fields": [
+       {
+        "fieldName": "musicMode",
+        "dataType": "ENUM",
+        "options": [
+         {
+          "name": "Energic",
+          "value": 5
+         },
+         {
+          "name": "Rhythm",
+          "value": 3
+         },
+         {
+          "name": "Spectrum",
+          "value": 6
+         },
+         {
+          "name": "Rolling",
+          "value": 4
+         }
+        ],
+        "required": true
+       },
+       {
+        "unit": "unit.percent",
+        "fieldName": "sensitivity",
+        "dataType": "INTEGER",
+        "range": {
+         "min": 0,
+         "max": 100,
+         "precision": 1
+        },
+        "required": true
+       },
+       {
+        "fieldName": "autoColor",
+        "dataType": "ENUM",
+        "options": [
+         {
+          "name": "on",
+          "value": 1
+         },
+         {
+          "name": "off",
+          "value": 0
+         }
+        ],
+        "required": false
+       },
+       {
+        "fieldName": "rgb",
+        "dataType": "INTEGER",
+        "range": {
+         "min": 0,
+         "max": 16777215,
+         "precision": 1
+        },
+        "required": false
+       }
+      ]
+     }
+    },
+    {
+     "type": "devices.capabilities.dynamic_scene",
+     "instance": "lightScene",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": []
+     }
+    },
+    {
+     "type": "devices.capabilities.dynamic_scene",
+     "instance": "diyScene",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": []
+     }
+    }
+   ]
+  },
+  {
+   "sku": "H600D",
+   "device": "AA:BB:CC:DD:EE:FF:00:07",
+   "deviceName": "Garden RH back bottom",
+   "type": "devices.types.light",
+   "capabilities": [
+    {
+     "type": "devices.capabilities.on_off",
+     "instance": "powerSwitch",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": [
+       {
+        "name": "on",
+        "value": 1
+       },
+       {
+        "name": "off",
+        "value": 0
+       }
+      ]
+     }
+    },
+    {
+     "type": "devices.capabilities.range",
+     "instance": "brightness",
+     "parameters": {
+      "unit": "unit.percent",
+      "dataType": "INTEGER",
+      "range": {
+       "min": 1,
+       "max": 100,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.color_setting",
+     "instance": "colorRgb",
+     "parameters": {
+      "dataType": "INTEGER",
+      "range": {
+       "min": 0,
+       "max": 16777215,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.color_setting",
+     "instance": "colorTemperatureK",
+     "parameters": {
+      "dataType": "INTEGER",
+      "range": {
+       "min": 2700,
+       "max": 6500,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.music_setting",
+     "instance": "musicMode",
+     "parameters": {
+      "dataType": "STRUCT",
+      "fields": [
+       {
+        "fieldName": "musicMode",
+        "dataType": "ENUM",
+        "options": [
+         {
+          "name": "Energic",
+          "value": 5
+         },
+         {
+          "name": "Rhythm",
+          "value": 3
+         },
+         {
+          "name": "Spectrum",
+          "value": 6
+         },
+         {
+          "name": "Rolling",
+          "value": 4
+         }
+        ],
+        "required": true
+       },
+       {
+        "unit": "unit.percent",
+        "fieldName": "sensitivity",
+        "dataType": "INTEGER",
+        "range": {
+         "min": 0,
+         "max": 100,
+         "precision": 1
+        },
+        "required": true
+       },
+       {
+        "fieldName": "autoColor",
+        "dataType": "ENUM",
+        "options": [
+         {
+          "name": "on",
+          "value": 1
+         },
+         {
+          "name": "off",
+          "value": 0
+         }
+        ],
+        "required": false
+       },
+       {
+        "fieldName": "rgb",
+        "dataType": "INTEGER",
+        "range": {
+         "min": 0,
+         "max": 16777215,
+         "precision": 1
+        },
+        "required": false
+       }
+      ]
+     }
+    },
+    {
+     "type": "devices.capabilities.dynamic_scene",
+     "instance": "lightScene",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": []
+     }
+    },
+    {
+     "type": "devices.capabilities.dynamic_scene",
+     "instance": "diyScene",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": []
+     }
+    }
+   ]
+  },
+  {
+   "sku": "H600D",
+   "device": "AA:BB:CC:DD:EE:FF:00:08",
+   "deviceName": "Garden RH back top",
+   "type": "devices.types.light",
+   "capabilities": [
+    {
+     "type": "devices.capabilities.on_off",
+     "instance": "powerSwitch",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": [
+       {
+        "name": "on",
+        "value": 1
+       },
+       {
+        "name": "off",
+        "value": 0
+       }
+      ]
+     }
+    },
+    {
+     "type": "devices.capabilities.range",
+     "instance": "brightness",
+     "parameters": {
+      "unit": "unit.percent",
+      "dataType": "INTEGER",
+      "range": {
+       "min": 1,
+       "max": 100,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.color_setting",
+     "instance": "colorRgb",
+     "parameters": {
+      "dataType": "INTEGER",
+      "range": {
+       "min": 0,
+       "max": 16777215,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.color_setting",
+     "instance": "colorTemperatureK",
+     "parameters": {
+      "dataType": "INTEGER",
+      "range": {
+       "min": 2700,
+       "max": 6500,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.music_setting",
+     "instance": "musicMode",
+     "parameters": {
+      "dataType": "STRUCT",
+      "fields": [
+       {
+        "fieldName": "musicMode",
+        "dataType": "ENUM",
+        "options": [
+         {
+          "name": "Energic",
+          "value": 5
+         },
+         {
+          "name": "Rhythm",
+          "value": 3
+         },
+         {
+          "name": "Spectrum",
+          "value": 6
+         },
+         {
+          "name": "Rolling",
+          "value": 4
+         }
+        ],
+        "required": true
+       },
+       {
+        "unit": "unit.percent",
+        "fieldName": "sensitivity",
+        "dataType": "INTEGER",
+        "range": {
+         "min": 0,
+         "max": 100,
+         "precision": 1
+        },
+        "required": true
+       },
+       {
+        "fieldName": "autoColor",
+        "dataType": "ENUM",
+        "options": [
+         {
+          "name": "on",
+          "value": 1
+         },
+         {
+          "name": "off",
+          "value": 0
+         }
+        ],
+        "required": false
+       },
+       {
+        "fieldName": "rgb",
+        "dataType": "INTEGER",
+        "range": {
+         "min": 0,
+         "max": 16777215,
+         "precision": 1
+        },
+        "required": false
+       }
+      ]
+     }
+    },
+    {
+     "type": "devices.capabilities.dynamic_scene",
+     "instance": "lightScene",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": []
+     }
+    },
+    {
+     "type": "devices.capabilities.dynamic_scene",
+     "instance": "diyScene",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": []
+     }
+    }
+   ]
+  },
+  {
+   "sku": "H5075",
+   "device": "AA:BB:CC:DD:EE:FF:00:09",
+   "deviceName": "Thermometer 1",
+   "type": "devices.types.thermometer",
+   "capabilities": [
+    {
+     "type": "devices.capabilities.property",
+     "instance": "sensorTemperature"
+    },
+    {
+     "type": "devices.capabilities.property",
+     "instance": "sensorHumidity"
+    }
+   ]
+  },
+  {
+   "sku": "H5075",
+   "device": "AA:BB:CC:DD:EE:FF:00:0A",
+   "deviceName": "Thermometer 2",
+   "type": "devices.types.thermometer",
+   "capabilities": [
+    {
+     "type": "devices.capabilities.property",
+     "instance": "sensorTemperature"
+    },
+    {
+     "type": "devices.capabilities.property",
+     "instance": "sensorHumidity"
+    }
+   ]
+  },
+  {
+   "sku": "H5075",
+   "device": "AA:BB:CC:DD:EE:FF:00:0B",
+   "deviceName": "Thermometer 3",
+   "type": "devices.types.thermometer",
+   "capabilities": [
+    {
+     "type": "devices.capabilities.property",
+     "instance": "sensorTemperature"
+    },
+    {
+     "type": "devices.capabilities.property",
+     "instance": "sensorHumidity"
+    }
+   ]
+  },
+  {
+   "sku": "H5075",
+   "device": "AA:BB:CC:DD:EE:FF:00:0C",
+   "deviceName": "Thermometer 4",
+   "type": "devices.types.thermometer",
+   "capabilities": [
+    {
+     "type": "devices.capabilities.property",
+     "instance": "sensorTemperature"
+    },
+    {
+     "type": "devices.capabilities.property",
+     "instance": "sensorHumidity"
+    }
+   ]
+  },
+  {
+   "sku": "H5075",
+   "device": "AA:BB:CC:DD:EE:FF:00:0D",
+   "deviceName": "Thermometer 5",
+   "type": "devices.types.thermometer",
+   "capabilities": [
+    {
+     "type": "devices.capabilities.property",
+     "instance": "sensorTemperature"
+    },
+    {
+     "type": "devices.capabilities.property",
+     "instance": "sensorHumidity"
+    }
+   ]
+  },
+  {
+   "sku": "H6099",
+   "device": "AA:BB:CC:DD:EE:FF:00:0E",
+   "deviceName": "Apple TV Backlight",
+   "type": "devices.types.light",
+   "capabilities": [
+    {
+     "type": "devices.capabilities.on_off",
+     "instance": "powerSwitch",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": [
+       {
+        "name": "on",
+        "value": 1
+       },
+       {
+        "name": "off",
+        "value": 0
+       }
+      ]
+     }
+    },
+    {
+     "type": "devices.capabilities.toggle",
+     "instance": "gradientToggle",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": [
+       {
+        "name": "on",
+        "value": 1
+       },
+       {
+        "name": "off",
+        "value": 0
+       }
+      ]
+     }
+    },
+    {
+     "type": "devices.capabilities.range",
+     "instance": "brightness",
+     "parameters": {
+      "unit": "unit.percent",
+      "dataType": "INTEGER",
+      "range": {
+       "min": 1,
+       "max": 100,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.segment_color_setting",
+     "instance": "segmentedBrightness",
+     "parameters": {
+      "dataType": "STRUCT",
+      "fields": [
+       {
+        "fieldName": "segment",
+        "size": {
+         "min": 1,
+         "max": 14
+        },
+        "dataType": "Array",
+        "elementRange": {
+         "min": 0,
+         "max": 14
+        },
+        "elementType": "INTEGER",
+        "required": true
+       },
+       {
+        "fieldName": "brightness",
+        "dataType": "INTEGER",
+        "range": {
+         "min": 0,
+         "max": 100,
+         "precision": 1
+        },
+        "required": true
+       }
+      ]
+     }
+    },
+    {
+     "type": "devices.capabilities.segment_color_setting",
+     "instance": "segmentedColorRgb",
+     "parameters": {
+      "dataType": "STRUCT",
+      "fields": [
+       {
+        "fieldName": "segment",
+        "size": {
+         "min": 1,
+         "max": 14
+        },
+        "dataType": "Array",
+        "elementRange": {
+         "min": 0,
+         "max": 14
+        },
+        "required": true
+       },
+       {
+        "fieldName": "rgb",
+        "dataType": "INTEGER",
+        "range": {
+         "min": 0,
+         "max": 16777215,
+         "precision": 1
+        },
+        "required": true
+       }
+      ]
+     }
+    },
+    {
+     "type": "devices.capabilities.color_setting",
+     "instance": "colorRgb",
+     "parameters": {
+      "dataType": "INTEGER",
+      "range": {
+       "min": 0,
+       "max": 16777215,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.color_setting",
+     "instance": "colorTemperatureK",
+     "parameters": {
+      "dataType": "INTEGER",
+      "range": {
+       "min": 2000,
+       "max": 9000,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.dynamic_scene",
+     "instance": "lightScene",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": []
+     }
+    },
+    {
+     "type": "devices.capabilities.music_setting",
+     "instance": "musicMode",
+     "parameters": {
+      "dataType": "STRUCT",
+      "fields": [
+       {
+        "fieldName": "musicMode",
+        "dataType": "ENUM",
+        "options": [
+         {
+          "name": "Rhythm",
+          "value": 1
+         },
+         {
+          "name": "Spectrum",
+          "value": 2
+         },
+         {
+          "name": "Rolling",
+          "value": 3
+         },
+         {
+          "name": "Separation",
+          "value": 4
+         },
+         {
+          "name": "Hopping",
+          "value": 5
+         },
+         {
+          "name": "PianoKeys",
+          "value": 6
+         },
+         {
+          "name": "Fountain",
+          "value": 7
+         },
+         {
+          "name": "DayAndNight",
+          "value": 8
+         },
+         {
+          "name": "Sprouting",
+          "value": 9
+         },
+         {
+          "name": "Shiny",
+          "value": 10
+         },
+         {
+          "name": "Energic",
+          "value": 11
+         }
+        ],
+        "required": true
+       },
+       {
+        "unit": "unit.percent",
+        "fieldName": "sensitivity",
+        "dataType": "INTEGER",
+        "range": {
+         "min": 0,
+         "max": 100,
+         "precision": 1
+        },
+        "required": true
+       },
+       {
+        "fieldName": "autoColor",
+        "dataType": "ENUM",
+        "options": [
+         {
+          "name": "on",
+          "value": 1
+         },
+         {
+          "name": "off",
+          "value": 0
+         }
+        ],
+        "required": false
+       },
+       {
+        "fieldName": "rgb",
+        "dataType": "INTEGER",
+        "range": {
+         "min": 0,
+         "max": 16777215,
+         "precision": 1
+        },
+        "required": false
+       }
+      ]
+     }
+    },
+    {
+     "type": "devices.capabilities.dynamic_scene",
+     "instance": "diyScene",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": []
+     }
+    },
+    {
+     "type": "devices.capabilities.dynamic_scene",
+     "instance": "snapshot",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": []
+     }
+    }
+   ]
+  },
+  {
+   "sku": "H6076",
+   "device": "AA:BB:CC:DD:EE:FF:00:0F",
+   "deviceName": "Floor Lamp",
+   "type": "devices.types.light",
+   "capabilities": [
+    {
+     "type": "devices.capabilities.on_off",
+     "instance": "powerSwitch",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": [
+       {
+        "name": "on",
+        "value": 1
+       },
+       {
+        "name": "off",
+        "value": 0
+       }
+      ]
+     }
+    },
+    {
+     "type": "devices.capabilities.toggle",
+     "instance": "gradientToggle",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": [
+       {
+        "name": "on",
+        "value": 1
+       },
+       {
+        "name": "off",
+        "value": 0
+       }
+      ]
+     }
+    },
+    {
+     "type": "devices.capabilities.range",
+     "instance": "brightness",
+     "parameters": {
+      "unit": "unit.percent",
+      "dataType": "INTEGER",
+      "range": {
+       "min": 1,
+       "max": 100,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.segment_color_setting",
+     "instance": "segmentedBrightness",
+     "parameters": {
+      "dataType": "STRUCT",
+      "fields": [
+       {
+        "fieldName": "segment",
+        "size": {
+         "min": 1,
+         "max": 7
+        },
+        "dataType": "Array",
+        "elementRange": {
+         "min": 0,
+         "max": 14
+        },
+        "elementType": "INTEGER",
+        "required": true
+       },
+       {
+        "fieldName": "brightness",
+        "dataType": "INTEGER",
+        "range": {
+         "min": 0,
+         "max": 100,
+         "precision": 1
+        },
+        "required": true
+       }
+      ]
+     }
+    },
+    {
+     "type": "devices.capabilities.segment_color_setting",
+     "instance": "segmentedColorRgb",
+     "parameters": {
+      "dataType": "STRUCT",
+      "fields": [
+       {
+        "fieldName": "segment",
+        "size": {
+         "min": 1,
+         "max": 7
+        },
+        "dataType": "Array",
+        "elementRange": {
+         "min": 0,
+         "max": 14
+        },
+        "elementType": "INTEGER",
+        "required": true
+       },
+       {
+        "fieldName": "rgb",
+        "dataType": "INTEGER",
+        "range": {
+         "min": 0,
+         "max": 16777215,
+         "precision": 1
+        },
+        "required": true
+       }
+      ]
+     }
+    },
+    {
+     "type": "devices.capabilities.color_setting",
+     "instance": "colorRgb",
+     "parameters": {
+      "dataType": "INTEGER",
+      "range": {
+       "min": 0,
+       "max": 16777215,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.color_setting",
+     "instance": "colorTemperatureK",
+     "parameters": {
+      "dataType": "INTEGER",
+      "range": {
+       "min": 2200,
+       "max": 6500,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.dynamic_scene",
+     "instance": "lightScene",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": []
+     }
+    },
+    {
+     "type": "devices.capabilities.music_setting",
+     "instance": "musicMode",
+     "parameters": {
+      "dataType": "STRUCT",
+      "fields": [
+       {
+        "fieldName": "musicMode",
+        "dataType": "ENUM",
+        "options": [
+         {
+          "name": "Energic",
+          "value": 0
+         },
+         {
+          "name": "Dynamic",
+          "value": 1
+         },
+         {
+          "name": "Calm",
+          "value": 2
+         },
+         {
+          "name": "Bounce",
+          "value": 3
+         },
+         {
+          "name": "Hopping",
+          "value": 4
+         },
+         {
+          "name": "Strike",
+          "value": 5
+         },
+         {
+          "name": "Vibrate",
+          "value": 6
+         },
+         {
+          "name": "Skittles",
+          "value": 7
+         },
+         {
+          "name": "Torch",
+          "value": 8
+         },
+         {
+          "name": "CandyCrush",
+          "value": 9
+         },
+         {
+          "name": "Fusion",
+          "value": 10
+         },
+         {
+          "name": "Luminous",
+          "value": 11
+         },
+         {
+          "name": "Separation",
+          "value": 12
+         }
+        ],
+        "required": true
+       },
+       {
+        "unit": "unit.percent",
+        "fieldName": "sensitivity",
+        "dataType": "INTEGER",
+        "range": {
+         "min": 0,
+         "max": 100,
+         "precision": 1
+        },
+        "required": true
+       },
+       {
+        "fieldName": "autoColor",
+        "dataType": "ENUM",
+        "options": [
+         {
+          "name": "on",
+          "value": 1
+         },
+         {
+          "name": "off",
+          "value": 0
+         }
+        ],
+        "required": false
+       },
+       {
+        "fieldName": "rgb",
+        "dataType": "INTEGER",
+        "range": {
+         "min": 0,
+         "max": 16777215,
+         "precision": 1
+        },
+        "required": false
+       }
+      ]
+     }
+    },
+    {
+     "type": "devices.capabilities.dynamic_scene",
+     "instance": "diyScene",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": []
+     }
+    },
+    {
+     "type": "devices.capabilities.dynamic_scene",
+     "instance": "snapshot",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": []
+     }
+    },
+    {
+     "type": "devices.capabilities.toggle",
+     "instance": "dreamViewToggle",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": [
+       {
+        "name": "on",
+        "value": 1
+       },
+       {
+        "name": "off",
+        "value": 0
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "sku": "H600D",
+   "device": "AA:BB:CC:DD:EE:FF:00:10",
+   "deviceName": "Balcony RH bottom",
+   "type": "devices.types.light",
+   "capabilities": [
+    {
+     "type": "devices.capabilities.on_off",
+     "instance": "powerSwitch",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": [
+       {
+        "name": "on",
+        "value": 1
+       },
+       {
+        "name": "off",
+        "value": 0
+       }
+      ]
+     }
+    },
+    {
+     "type": "devices.capabilities.range",
+     "instance": "brightness",
+     "parameters": {
+      "unit": "unit.percent",
+      "dataType": "INTEGER",
+      "range": {
+       "min": 1,
+       "max": 100,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.color_setting",
+     "instance": "colorRgb",
+     "parameters": {
+      "dataType": "INTEGER",
+      "range": {
+       "min": 0,
+       "max": 16777215,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.color_setting",
+     "instance": "colorTemperatureK",
+     "parameters": {
+      "dataType": "INTEGER",
+      "range": {
+       "min": 2700,
+       "max": 6500,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.music_setting",
+     "instance": "musicMode",
+     "parameters": {
+      "dataType": "STRUCT",
+      "fields": [
+       {
+        "fieldName": "musicMode",
+        "dataType": "ENUM",
+        "options": [
+         {
+          "name": "Energic",
+          "value": 5
+         },
+         {
+          "name": "Rhythm",
+          "value": 3
+         },
+         {
+          "name": "Spectrum",
+          "value": 6
+         },
+         {
+          "name": "Rolling",
+          "value": 4
+         }
+        ],
+        "required": true
+       },
+       {
+        "unit": "unit.percent",
+        "fieldName": "sensitivity",
+        "dataType": "INTEGER",
+        "range": {
+         "min": 0,
+         "max": 100,
+         "precision": 1
+        },
+        "required": true
+       },
+       {
+        "fieldName": "autoColor",
+        "dataType": "ENUM",
+        "options": [
+         {
+          "name": "on",
+          "value": 1
+         },
+         {
+          "name": "off",
+          "value": 0
+         }
+        ],
+        "required": false
+       },
+       {
+        "fieldName": "rgb",
+        "dataType": "INTEGER",
+        "range": {
+         "min": 0,
+         "max": 16777215,
+         "precision": 1
+        },
+        "required": false
+       }
+      ]
+     }
+    },
+    {
+     "type": "devices.capabilities.dynamic_scene",
+     "instance": "lightScene",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": []
+     }
+    },
+    {
+     "type": "devices.capabilities.dynamic_scene",
+     "instance": "diyScene",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": []
+     }
+    }
+   ]
+  },
+  {
+   "sku": "H600D",
+   "device": "AA:BB:CC:DD:EE:FF:00:11",
+   "deviceName": "Balcony M bottom",
+   "type": "devices.types.light",
+   "capabilities": [
+    {
+     "type": "devices.capabilities.on_off",
+     "instance": "powerSwitch",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": [
+       {
+        "name": "on",
+        "value": 1
+       },
+       {
+        "name": "off",
+        "value": 0
+       }
+      ]
+     }
+    },
+    {
+     "type": "devices.capabilities.range",
+     "instance": "brightness",
+     "parameters": {
+      "unit": "unit.percent",
+      "dataType": "INTEGER",
+      "range": {
+       "min": 1,
+       "max": 100,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.color_setting",
+     "instance": "colorRgb",
+     "parameters": {
+      "dataType": "INTEGER",
+      "range": {
+       "min": 0,
+       "max": 16777215,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.color_setting",
+     "instance": "colorTemperatureK",
+     "parameters": {
+      "dataType": "INTEGER",
+      "range": {
+       "min": 2700,
+       "max": 6500,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.music_setting",
+     "instance": "musicMode",
+     "parameters": {
+      "dataType": "STRUCT",
+      "fields": [
+       {
+        "fieldName": "musicMode",
+        "dataType": "ENUM",
+        "options": [
+         {
+          "name": "Energic",
+          "value": 5
+         },
+         {
+          "name": "Rhythm",
+          "value": 3
+         },
+         {
+          "name": "Spectrum",
+          "value": 6
+         },
+         {
+          "name": "Rolling",
+          "value": 4
+         }
+        ],
+        "required": true
+       },
+       {
+        "unit": "unit.percent",
+        "fieldName": "sensitivity",
+        "dataType": "INTEGER",
+        "range": {
+         "min": 0,
+         "max": 100,
+         "precision": 1
+        },
+        "required": true
+       },
+       {
+        "fieldName": "autoColor",
+        "dataType": "ENUM",
+        "options": [
+         {
+          "name": "on",
+          "value": 1
+         },
+         {
+          "name": "off",
+          "value": 0
+         }
+        ],
+        "required": false
+       },
+       {
+        "fieldName": "rgb",
+        "dataType": "INTEGER",
+        "range": {
+         "min": 0,
+         "max": 16777215,
+         "precision": 1
+        },
+        "required": false
+       }
+      ]
+     }
+    },
+    {
+     "type": "devices.capabilities.dynamic_scene",
+     "instance": "lightScene",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": []
+     }
+    },
+    {
+     "type": "devices.capabilities.dynamic_scene",
+     "instance": "diyScene",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": []
+     }
+    }
+   ]
+  },
+  {
+   "sku": "H600D",
+   "device": "AA:BB:CC:DD:EE:FF:00:12",
+   "deviceName": "Balcony LH bottom",
+   "type": "devices.types.light",
+   "capabilities": [
+    {
+     "type": "devices.capabilities.on_off",
+     "instance": "powerSwitch",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": [
+       {
+        "name": "on",
+        "value": 1
+       },
+       {
+        "name": "off",
+        "value": 0
+       }
+      ]
+     }
+    },
+    {
+     "type": "devices.capabilities.range",
+     "instance": "brightness",
+     "parameters": {
+      "unit": "unit.percent",
+      "dataType": "INTEGER",
+      "range": {
+       "min": 1,
+       "max": 100,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.color_setting",
+     "instance": "colorRgb",
+     "parameters": {
+      "dataType": "INTEGER",
+      "range": {
+       "min": 0,
+       "max": 16777215,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.color_setting",
+     "instance": "colorTemperatureK",
+     "parameters": {
+      "dataType": "INTEGER",
+      "range": {
+       "min": 2700,
+       "max": 6500,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.music_setting",
+     "instance": "musicMode",
+     "parameters": {
+      "dataType": "STRUCT",
+      "fields": [
+       {
+        "fieldName": "musicMode",
+        "dataType": "ENUM",
+        "options": [
+         {
+          "name": "Energic",
+          "value": 5
+         },
+         {
+          "name": "Rhythm",
+          "value": 3
+         },
+         {
+          "name": "Spectrum",
+          "value": 6
+         },
+         {
+          "name": "Rolling",
+          "value": 4
+         }
+        ],
+        "required": true
+       },
+       {
+        "unit": "unit.percent",
+        "fieldName": "sensitivity",
+        "dataType": "INTEGER",
+        "range": {
+         "min": 0,
+         "max": 100,
+         "precision": 1
+        },
+        "required": true
+       },
+       {
+        "fieldName": "autoColor",
+        "dataType": "ENUM",
+        "options": [
+         {
+          "name": "on",
+          "value": 1
+         },
+         {
+          "name": "off",
+          "value": 0
+         }
+        ],
+        "required": false
+       },
+       {
+        "fieldName": "rgb",
+        "dataType": "INTEGER",
+        "range": {
+         "min": 0,
+         "max": 16777215,
+         "precision": 1
+        },
+        "required": false
+       }
+      ]
+     }
+    },
+    {
+     "type": "devices.capabilities.dynamic_scene",
+     "instance": "lightScene",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": []
+     }
+    },
+    {
+     "type": "devices.capabilities.dynamic_scene",
+     "instance": "diyScene",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": []
+     }
+    }
+   ]
+  },
+  {
+   "sku": "H600D",
+   "device": "AA:BB:CC:DD:EE:FF:00:13",
+   "deviceName": "Balcony M top",
+   "type": "devices.types.light",
+   "capabilities": [
+    {
+     "type": "devices.capabilities.on_off",
+     "instance": "powerSwitch",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": [
+       {
+        "name": "on",
+        "value": 1
+       },
+       {
+        "name": "off",
+        "value": 0
+       }
+      ]
+     }
+    },
+    {
+     "type": "devices.capabilities.range",
+     "instance": "brightness",
+     "parameters": {
+      "unit": "unit.percent",
+      "dataType": "INTEGER",
+      "range": {
+       "min": 1,
+       "max": 100,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.color_setting",
+     "instance": "colorRgb",
+     "parameters": {
+      "dataType": "INTEGER",
+      "range": {
+       "min": 0,
+       "max": 16777215,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.color_setting",
+     "instance": "colorTemperatureK",
+     "parameters": {
+      "dataType": "INTEGER",
+      "range": {
+       "min": 2700,
+       "max": 6500,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.music_setting",
+     "instance": "musicMode",
+     "parameters": {
+      "dataType": "STRUCT",
+      "fields": [
+       {
+        "fieldName": "musicMode",
+        "dataType": "ENUM",
+        "options": [
+         {
+          "name": "Energic",
+          "value": 5
+         },
+         {
+          "name": "Rhythm",
+          "value": 3
+         },
+         {
+          "name": "Spectrum",
+          "value": 6
+         },
+         {
+          "name": "Rolling",
+          "value": 4
+         }
+        ],
+        "required": true
+       },
+       {
+        "unit": "unit.percent",
+        "fieldName": "sensitivity",
+        "dataType": "INTEGER",
+        "range": {
+         "min": 0,
+         "max": 100,
+         "precision": 1
+        },
+        "required": true
+       },
+       {
+        "fieldName": "autoColor",
+        "dataType": "ENUM",
+        "options": [
+         {
+          "name": "on",
+          "value": 1
+         },
+         {
+          "name": "off",
+          "value": 0
+         }
+        ],
+        "required": false
+       },
+       {
+        "fieldName": "rgb",
+        "dataType": "INTEGER",
+        "range": {
+         "min": 0,
+         "max": 16777215,
+         "precision": 1
+        },
+        "required": false
+       }
+      ]
+     }
+    },
+    {
+     "type": "devices.capabilities.dynamic_scene",
+     "instance": "lightScene",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": []
+     }
+    },
+    {
+     "type": "devices.capabilities.dynamic_scene",
+     "instance": "diyScene",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": []
+     }
+    }
+   ]
+  },
+  {
+   "sku": "H600D",
+   "device": "AA:BB:CC:DD:EE:FF:00:14",
+   "deviceName": "Balcony LH top",
+   "type": "devices.types.light",
+   "capabilities": [
+    {
+     "type": "devices.capabilities.on_off",
+     "instance": "powerSwitch",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": [
+       {
+        "name": "on",
+        "value": 1
+       },
+       {
+        "name": "off",
+        "value": 0
+       }
+      ]
+     }
+    },
+    {
+     "type": "devices.capabilities.range",
+     "instance": "brightness",
+     "parameters": {
+      "unit": "unit.percent",
+      "dataType": "INTEGER",
+      "range": {
+       "min": 1,
+       "max": 100,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.color_setting",
+     "instance": "colorRgb",
+     "parameters": {
+      "dataType": "INTEGER",
+      "range": {
+       "min": 0,
+       "max": 16777215,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.color_setting",
+     "instance": "colorTemperatureK",
+     "parameters": {
+      "dataType": "INTEGER",
+      "range": {
+       "min": 2700,
+       "max": 6500,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.music_setting",
+     "instance": "musicMode",
+     "parameters": {
+      "dataType": "STRUCT",
+      "fields": [
+       {
+        "fieldName": "musicMode",
+        "dataType": "ENUM",
+        "options": [
+         {
+          "name": "Energic",
+          "value": 5
+         },
+         {
+          "name": "Rhythm",
+          "value": 3
+         },
+         {
+          "name": "Spectrum",
+          "value": 6
+         },
+         {
+          "name": "Rolling",
+          "value": 4
+         }
+        ],
+        "required": true
+       },
+       {
+        "unit": "unit.percent",
+        "fieldName": "sensitivity",
+        "dataType": "INTEGER",
+        "range": {
+         "min": 0,
+         "max": 100,
+         "precision": 1
+        },
+        "required": true
+       },
+       {
+        "fieldName": "autoColor",
+        "dataType": "ENUM",
+        "options": [
+         {
+          "name": "on",
+          "value": 1
+         },
+         {
+          "name": "off",
+          "value": 0
+         }
+        ],
+        "required": false
+       },
+       {
+        "fieldName": "rgb",
+        "dataType": "INTEGER",
+        "range": {
+         "min": 0,
+         "max": 16777215,
+         "precision": 1
+        },
+        "required": false
+       }
+      ]
+     }
+    },
+    {
+     "type": "devices.capabilities.dynamic_scene",
+     "instance": "lightScene",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": []
+     }
+    },
+    {
+     "type": "devices.capabilities.dynamic_scene",
+     "instance": "diyScene",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": []
+     }
+    }
+   ]
+  },
+  {
+   "sku": "H600D",
+   "device": "AA:BB:CC:DD:EE:FF:00:15",
+   "deviceName": "Balcony RH top",
+   "type": "devices.types.light",
+   "capabilities": [
+    {
+     "type": "devices.capabilities.on_off",
+     "instance": "powerSwitch",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": [
+       {
+        "name": "on",
+        "value": 1
+       },
+       {
+        "name": "off",
+        "value": 0
+       }
+      ]
+     }
+    },
+    {
+     "type": "devices.capabilities.range",
+     "instance": "brightness",
+     "parameters": {
+      "unit": "unit.percent",
+      "dataType": "INTEGER",
+      "range": {
+       "min": 1,
+       "max": 100,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.color_setting",
+     "instance": "colorRgb",
+     "parameters": {
+      "dataType": "INTEGER",
+      "range": {
+       "min": 0,
+       "max": 16777215,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.color_setting",
+     "instance": "colorTemperatureK",
+     "parameters": {
+      "dataType": "INTEGER",
+      "range": {
+       "min": 2700,
+       "max": 6500,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.music_setting",
+     "instance": "musicMode",
+     "parameters": {
+      "dataType": "STRUCT",
+      "fields": [
+       {
+        "fieldName": "musicMode",
+        "dataType": "ENUM",
+        "options": [
+         {
+          "name": "Energic",
+          "value": 5
+         },
+         {
+          "name": "Rhythm",
+          "value": 3
+         },
+         {
+          "name": "Spectrum",
+          "value": 6
+         },
+         {
+          "name": "Rolling",
+          "value": 4
+         }
+        ],
+        "required": true
+       },
+       {
+        "unit": "unit.percent",
+        "fieldName": "sensitivity",
+        "dataType": "INTEGER",
+        "range": {
+         "min": 0,
+         "max": 100,
+         "precision": 1
+        },
+        "required": true
+       },
+       {
+        "fieldName": "autoColor",
+        "dataType": "ENUM",
+        "options": [
+         {
+          "name": "on",
+          "value": 1
+         },
+         {
+          "name": "off",
+          "value": 0
+         }
+        ],
+        "required": false
+       },
+       {
+        "fieldName": "rgb",
+        "dataType": "INTEGER",
+        "range": {
+         "min": 0,
+         "max": 16777215,
+         "precision": 1
+        },
+        "required": false
+       }
+      ]
+     }
+    },
+    {
+     "type": "devices.capabilities.dynamic_scene",
+     "instance": "lightScene",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": []
+     }
+    },
+    {
+     "type": "devices.capabilities.dynamic_scene",
+     "instance": "diyScene",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": []
+     }
+    }
+   ]
+  },
+  {
+   "sku": "H600D",
+   "device": "AA:BB:CC:DD:EE:FF:00:16",
+   "deviceName": "Cinema Right",
+   "type": "devices.types.light",
+   "capabilities": [
+    {
+     "type": "devices.capabilities.on_off",
+     "instance": "powerSwitch",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": [
+       {
+        "name": "on",
+        "value": 1
+       },
+       {
+        "name": "off",
+        "value": 0
+       }
+      ]
+     }
+    },
+    {
+     "type": "devices.capabilities.range",
+     "instance": "brightness",
+     "parameters": {
+      "unit": "unit.percent",
+      "dataType": "INTEGER",
+      "range": {
+       "min": 1,
+       "max": 100,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.color_setting",
+     "instance": "colorRgb",
+     "parameters": {
+      "dataType": "INTEGER",
+      "range": {
+       "min": 0,
+       "max": 16777215,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.color_setting",
+     "instance": "colorTemperatureK",
+     "parameters": {
+      "dataType": "INTEGER",
+      "range": {
+       "min": 2700,
+       "max": 6500,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.music_setting",
+     "instance": "musicMode",
+     "parameters": {
+      "dataType": "STRUCT",
+      "fields": [
+       {
+        "fieldName": "musicMode",
+        "dataType": "ENUM",
+        "options": [
+         {
+          "name": "Energic",
+          "value": 5
+         },
+         {
+          "name": "Rhythm",
+          "value": 3
+         },
+         {
+          "name": "Spectrum",
+          "value": 6
+         },
+         {
+          "name": "Rolling",
+          "value": 4
+         }
+        ],
+        "required": true
+       },
+       {
+        "unit": "unit.percent",
+        "fieldName": "sensitivity",
+        "dataType": "INTEGER",
+        "range": {
+         "min": 0,
+         "max": 100,
+         "precision": 1
+        },
+        "required": true
+       },
+       {
+        "fieldName": "autoColor",
+        "dataType": "ENUM",
+        "options": [
+         {
+          "name": "on",
+          "value": 1
+         },
+         {
+          "name": "off",
+          "value": 0
+         }
+        ],
+        "required": false
+       },
+       {
+        "fieldName": "rgb",
+        "dataType": "INTEGER",
+        "range": {
+         "min": 0,
+         "max": 16777215,
+         "precision": 1
+        },
+        "required": false
+       }
+      ]
+     }
+    },
+    {
+     "type": "devices.capabilities.dynamic_scene",
+     "instance": "lightScene",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": []
+     }
+    },
+    {
+     "type": "devices.capabilities.dynamic_scene",
+     "instance": "diyScene",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": []
+     }
+    }
+   ]
+  },
+  {
+   "sku": "H600D",
+   "device": "AA:BB:CC:DD:EE:FF:00:17",
+   "deviceName": "Cinema Left",
+   "type": "devices.types.light",
+   "capabilities": [
+    {
+     "type": "devices.capabilities.on_off",
+     "instance": "powerSwitch",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": [
+       {
+        "name": "on",
+        "value": 1
+       },
+       {
+        "name": "off",
+        "value": 0
+       }
+      ]
+     }
+    },
+    {
+     "type": "devices.capabilities.range",
+     "instance": "brightness",
+     "parameters": {
+      "unit": "unit.percent",
+      "dataType": "INTEGER",
+      "range": {
+       "min": 1,
+       "max": 100,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.color_setting",
+     "instance": "colorRgb",
+     "parameters": {
+      "dataType": "INTEGER",
+      "range": {
+       "min": 0,
+       "max": 16777215,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.color_setting",
+     "instance": "colorTemperatureK",
+     "parameters": {
+      "dataType": "INTEGER",
+      "range": {
+       "min": 2700,
+       "max": 6500,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.music_setting",
+     "instance": "musicMode",
+     "parameters": {
+      "dataType": "STRUCT",
+      "fields": [
+       {
+        "fieldName": "musicMode",
+        "dataType": "ENUM",
+        "options": [
+         {
+          "name": "Energic",
+          "value": 5
+         },
+         {
+          "name": "Rhythm",
+          "value": 3
+         },
+         {
+          "name": "Spectrum",
+          "value": 6
+         },
+         {
+          "name": "Rolling",
+          "value": 4
+         }
+        ],
+        "required": true
+       },
+       {
+        "unit": "unit.percent",
+        "fieldName": "sensitivity",
+        "dataType": "INTEGER",
+        "range": {
+         "min": 0,
+         "max": 100,
+         "precision": 1
+        },
+        "required": true
+       },
+       {
+        "fieldName": "autoColor",
+        "dataType": "ENUM",
+        "options": [
+         {
+          "name": "on",
+          "value": 1
+         },
+         {
+          "name": "off",
+          "value": 0
+         }
+        ],
+        "required": false
+       },
+       {
+        "fieldName": "rgb",
+        "dataType": "INTEGER",
+        "range": {
+         "min": 0,
+         "max": 16777215,
+         "precision": 1
+        },
+        "required": false
+       }
+      ]
+     }
+    },
+    {
+     "type": "devices.capabilities.dynamic_scene",
+     "instance": "lightScene",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": []
+     }
+    },
+    {
+     "type": "devices.capabilities.dynamic_scene",
+     "instance": "diyScene",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": []
+     }
+    }
+   ]
+  },
+  {
+   "sku": "H600D",
+   "device": "AA:BB:CC:DD:EE:FF:00:18",
+   "deviceName": "Sofa Right",
+   "type": "devices.types.light",
+   "capabilities": [
+    {
+     "type": "devices.capabilities.on_off",
+     "instance": "powerSwitch",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": [
+       {
+        "name": "on",
+        "value": 1
+       },
+       {
+        "name": "off",
+        "value": 0
+       }
+      ]
+     }
+    },
+    {
+     "type": "devices.capabilities.range",
+     "instance": "brightness",
+     "parameters": {
+      "unit": "unit.percent",
+      "dataType": "INTEGER",
+      "range": {
+       "min": 1,
+       "max": 100,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.color_setting",
+     "instance": "colorRgb",
+     "parameters": {
+      "dataType": "INTEGER",
+      "range": {
+       "min": 0,
+       "max": 16777215,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.color_setting",
+     "instance": "colorTemperatureK",
+     "parameters": {
+      "dataType": "INTEGER",
+      "range": {
+       "min": 2700,
+       "max": 6500,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.music_setting",
+     "instance": "musicMode",
+     "parameters": {
+      "dataType": "STRUCT",
+      "fields": [
+       {
+        "fieldName": "musicMode",
+        "dataType": "ENUM",
+        "options": [
+         {
+          "name": "Energic",
+          "value": 5
+         },
+         {
+          "name": "Rhythm",
+          "value": 3
+         },
+         {
+          "name": "Spectrum",
+          "value": 6
+         },
+         {
+          "name": "Rolling",
+          "value": 4
+         }
+        ],
+        "required": true
+       },
+       {
+        "unit": "unit.percent",
+        "fieldName": "sensitivity",
+        "dataType": "INTEGER",
+        "range": {
+         "min": 0,
+         "max": 100,
+         "precision": 1
+        },
+        "required": true
+       },
+       {
+        "fieldName": "autoColor",
+        "dataType": "ENUM",
+        "options": [
+         {
+          "name": "on",
+          "value": 1
+         },
+         {
+          "name": "off",
+          "value": 0
+         }
+        ],
+        "required": false
+       },
+       {
+        "fieldName": "rgb",
+        "dataType": "INTEGER",
+        "range": {
+         "min": 0,
+         "max": 16777215,
+         "precision": 1
+        },
+        "required": false
+       }
+      ]
+     }
+    },
+    {
+     "type": "devices.capabilities.dynamic_scene",
+     "instance": "lightScene",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": []
+     }
+    },
+    {
+     "type": "devices.capabilities.dynamic_scene",
+     "instance": "diyScene",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": []
+     }
+    }
+   ]
+  },
+  {
+   "sku": "H600D",
+   "device": "AA:BB:CC:DD:EE:FF:00:19",
+   "deviceName": "Sofa Left",
+   "type": "devices.types.light",
+   "capabilities": [
+    {
+     "type": "devices.capabilities.on_off",
+     "instance": "powerSwitch",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": [
+       {
+        "name": "on",
+        "value": 1
+       },
+       {
+        "name": "off",
+        "value": 0
+       }
+      ]
+     }
+    },
+    {
+     "type": "devices.capabilities.range",
+     "instance": "brightness",
+     "parameters": {
+      "unit": "unit.percent",
+      "dataType": "INTEGER",
+      "range": {
+       "min": 1,
+       "max": 100,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.color_setting",
+     "instance": "colorRgb",
+     "parameters": {
+      "dataType": "INTEGER",
+      "range": {
+       "min": 0,
+       "max": 16777215,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.color_setting",
+     "instance": "colorTemperatureK",
+     "parameters": {
+      "dataType": "INTEGER",
+      "range": {
+       "min": 2700,
+       "max": 6500,
+       "precision": 1
+      }
+     }
+    },
+    {
+     "type": "devices.capabilities.music_setting",
+     "instance": "musicMode",
+     "parameters": {
+      "dataType": "STRUCT",
+      "fields": [
+       {
+        "fieldName": "musicMode",
+        "dataType": "ENUM",
+        "options": [
+         {
+          "name": "Energic",
+          "value": 5
+         },
+         {
+          "name": "Rhythm",
+          "value": 3
+         },
+         {
+          "name": "Spectrum",
+          "value": 6
+         },
+         {
+          "name": "Rolling",
+          "value": 4
+         }
+        ],
+        "required": true
+       },
+       {
+        "unit": "unit.percent",
+        "fieldName": "sensitivity",
+        "dataType": "INTEGER",
+        "range": {
+         "min": 0,
+         "max": 100,
+         "precision": 1
+        },
+        "required": true
+       },
+       {
+        "fieldName": "autoColor",
+        "dataType": "ENUM",
+        "options": [
+         {
+          "name": "on",
+          "value": 1
+         },
+         {
+          "name": "off",
+          "value": 0
+         }
+        ],
+        "required": false
+       },
+       {
+        "fieldName": "rgb",
+        "dataType": "INTEGER",
+        "range": {
+         "min": 0,
+         "max": 16777215,
+         "precision": 1
+        },
+        "required": false
+       }
+      ]
+     }
+    },
+    {
+     "type": "devices.capabilities.dynamic_scene",
+     "instance": "lightScene",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": []
+     }
+    },
+    {
+     "type": "devices.capabilities.dynamic_scene",
+     "instance": "diyScene",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": []
+     }
+    }
+   ]
+  },
+  {
+   "sku": "SameModeGroup",
+   "device": "10000025",
+   "deviceName": "Garden Bottom",
+   "capabilities": [
+    {
+     "type": "devices.capabilities.on_off",
+     "instance": "powerSwitch",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": [
+       {
+        "name": "on",
+        "value": 1
+       },
+       {
+        "name": "off",
+        "value": 0
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "sku": "SameModeGroup",
+   "device": "10000026",
+   "deviceName": "Garden Top",
+   "capabilities": [
+    {
+     "type": "devices.capabilities.on_off",
+     "instance": "powerSwitch",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": [
+       {
+        "name": "on",
+        "value": 1
+       },
+       {
+        "name": "off",
+        "value": 0
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "sku": "SameModeGroup",
+   "device": "10000027",
+   "deviceName": "Garden All",
+   "capabilities": [
+    {
+     "type": "devices.capabilities.on_off",
+     "instance": "powerSwitch",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": [
+       {
+        "name": "on",
+        "value": 1
+       },
+       {
+        "name": "off",
+        "value": 0
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "sku": "DreamViewScenic",
+   "device": "10000028",
+   "deviceName": "Theatre screen",
+   "capabilities": [
+    {
+     "type": "devices.capabilities.on_off",
+     "instance": "powerSwitch",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": [
+       {
+        "name": "on",
+        "value": 1
+       },
+       {
+        "name": "off",
+        "value": 0
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "sku": "DreamViewScenic",
+   "device": "10000029",
+   "deviceName": "Theatre Sofa",
+   "capabilities": [
+    {
+     "type": "devices.capabilities.on_off",
+     "instance": "powerSwitch",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": [
+       {
+        "name": "on",
+        "value": 1
+       },
+       {
+        "name": "off",
+        "value": 0
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "sku": "DreamViewScenic",
+   "device": "10000030",
+   "deviceName": "Theatre all",
+   "capabilities": [
+    {
+     "type": "devices.capabilities.on_off",
+     "instance": "powerSwitch",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": [
+       {
+        "name": "on",
+        "value": 1
+       },
+       {
+        "name": "off",
+        "value": 0
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "sku": "DreamViewScenic",
+   "device": "10000031",
+   "deviceName": "BBQ scenic",
+   "capabilities": [
+    {
+     "type": "devices.capabilities.on_off",
+     "instance": "powerSwitch",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": [
+       {
+        "name": "on",
+        "value": 1
+       },
+       {
+        "name": "off",
+        "value": 0
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "sku": "DreamViewScenic",
+   "device": "10000032",
+   "deviceName": "Garden Top",
+   "capabilities": [
+    {
+     "type": "devices.capabilities.on_off",
+     "instance": "powerSwitch",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": [
+       {
+        "name": "on",
+        "value": 1
+       },
+       {
+        "name": "off",
+        "value": 0
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "sku": "DreamViewScenic",
+   "device": "10000033",
+   "deviceName": "Garden scenic",
+   "capabilities": [
+    {
+     "type": "devices.capabilities.on_off",
+     "instance": "powerSwitch",
+     "parameters": {
+      "dataType": "ENUM",
+      "options": [
+       {
+        "name": "on",
+        "value": 1
+       },
+       {
+        "name": "off",
+        "value": 0
+       }
+      ]
+     }
+    }
+   ]
+  }
+ ]
+}

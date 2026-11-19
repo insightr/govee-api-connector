@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<title>Govee lights</title>
+<style>
+  :root {
+    --bg: #101216; --card: #1a1d24; --line: #2b303b; --text: #e8eaf0; --muted: #98a0b0;
+    --accent: #5b9dff; --ok: #3ecf8e; --bad: #ff6b6b; --btn: #262b35;
+  }
+  @media (prefers-color-scheme: light) {
+    :root { --bg: #f3f4f7; --card: #fff; --line: #dde0e7; --text: #171a21; --muted: #5c6474;
+            --accent: #1f6feb; --ok: #14804a; --bad: #c62828; --btn: #eceef3; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+         font: 15px/1.4 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  header { position: sticky; top: 0; z-index: 2; background: var(--bg); border-bottom: 1px solid var(--line);
+           padding: 10px 16px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  header h1 { font-size: 17px; margin: 0 auto 0 0; }
+  main { padding: 12px 16px 80px; max-width: 1100px; margin: 0 auto; }
+  h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 20px 0 8px; }
+  .grid { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 12px; }
+  .card.offline { opacity: .6; }
+  .top { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .swatch { width: 18px; height: 18px; border-radius: 50%; border: 1px solid var(--line); flex: none; background: #000; }
+  .name { font-weight: 600; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .meta { color: var(--muted); font-size: 12px; white-space: nowrap; }
+  .row { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
+  .row label { color: var(--muted); font-size: 12px; width: 62px; flex: none; }
+  .row output { font-size: 12px; color: var(--muted); width: 48px; text-align: right; flex: none; }
+  input[type=range] { flex: 1; min-width: 0; accent-color: var(--accent); height: 28px; }
+  input[type=color] { width: 44px; height: 32px; padding: 0; border: 1px solid var(--line); border-radius: 8px; background: none; }
+  button { font: inherit; color: var(--text); background: var(--btn); border: 1px solid var(--line);
+           border-radius: 8px; padding: 7px 12px; min-height: 36px; cursor: pointer; }
+  button:hover { border-color: var(--accent); }
+  button:disabled { opacity: .5; cursor: default; }
+  button.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .presets { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .presets button { padding: 5px 10px; min-height: 32px; display: flex; align-items: center; gap: 6px; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; border: 1px solid var(--line); }
+  #toast { position: fixed; left: 50%; bottom: 16px; transform: translateX(-50%); max-width: calc(100% - 32px);
+           background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px;
+           box-shadow: 0 6px 24px rgba(0,0,0,.3); display: none; }
+  #toast.bad { border-color: var(--bad); }
+  #toast.ok { border-color: var(--ok); }
+  #status { color: var(--muted); font-size: 12px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Govee lights</h1>
+  <span id="status">Loading…</span>
+  <button id="refresh" title="Read state from Govee now">Refresh</button>
+  <button id="snap" title="Remember what every light is doing">Snapshot all</button>
+  <button id="restore" title="Put lights back to the latest snapshot">Restore latest</button>
+</header>
+<main>
+  <h2>Groups</h2>
+  <div class="grid" id="groups"></div>
+  <h2>Lights</h2>
+  <div class="grid" id="lights"></div>
+</main>
+<div id="toast" role="status"></div>
+
+<script>
+"use strict";
+let overview = null;
+let states = {};          // device id -> state
+const cards = new Map();  // target -> {update(state)}
+let pollTimer = null;
+
+const $ = (id) => document.getElementById(id);
+const el = (tag, props = {}, ...children) => {
+  const node = Object.assign(document.createElement(tag), props);
+  node.append(...children);
+  return node;
+};
+const hex = (rgb) => "#" + rgb.map((c) => c.toString(16).padStart(2, "0")).join("");
+const unhex = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+
+// Rough colour for a white temperature, only for the on-screen swatch.
+function kelvinToCss(k) {
+  const t = Math.max(0, Math.min(1, (k - 2000) / 7000));
+  return `rgb(255, ${Math.round(180 + 60 * t)}, ${Math.round(110 + 145 * t)})`;
+}
+
+let toastTimer;
+function toast(message, kind = "ok") {
+  const t = $("toast");
+  t.textContent = message;
+  t.className = kind;
+  t.style.display = "block";
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => (t.style.display = "none"), kind === "bad" ? 7000 : 2500);
+}
+
+async function api(path, body) {
+  const response = await fetch(path, body === undefined ? {} : {
+    method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(body),
+  });
+  let data = null;
+  try { data = await response.json(); } catch (e) { /* not JSON */ }
+  if (!response.ok) {
+    const detail = data && (data.error || (Array.isArray(data.detail) ? data.detail.map((d) => d.msg).join("; ") : data.detail));
+    throw new Error(detail || `Request failed (${response.status})`);
+  }
+  return data;
+}
+
+// Send a command, then show which lights failed, if any.
+async function command(path, body, optimistic) {
+  try {
+    const data = await api(path, body);
+    const failed = (data.results || []).filter((r) => !r.ok);
+    if (failed.length) {
+      toast(`Failed: ${failed.map((r) => `${r.name} (${r.detail})`).join(", ")}`, "bad");
+    }
+    const okIds = new Set((data.results || []).filter((r) => r.ok && !r.skipped).map((r) => r.device));
+    if (optimistic) {
+      for (const id of okIds) if (states[id] && states[id].online) Object.assign(states[id], optimistic);
+      render();
+    }
+    return data;
+  } catch (error) {
+    toast(error.message, "bad");
+    return null;
+  }
+}
+
+function presetChanges(preset) {
+  const changes = {power: true};
+  if (preset.rgb) { changes.rgb = preset.rgb; changes.kelvin = 0; }
+  if (preset.kelvin) changes.kelvin = preset.kelvin;
+  if (preset.brightness != null) changes.brightness = preset.brightness;
+  return changes;
+}
+
+function buildCard(target, label, meta, caps) {
+  const swatch = el("span", {className: "swatch"});
+  const metaEl = el("span", {className: "meta", textContent: meta});
+  const onBtn = el("button", {textContent: "On"});
+  const offBtn = el("button", {textContent: "Off"});
+  onBtn.onclick = () => command("/api/power", {target, on: true}, {power: true});
+  offBtn.onclick = () => command("/api/power", {target, on: false}, {power: false});
+
+  const card = el("div", {className: "card"},
+    el("div", {className: "top"}, swatch, el("span", {className: "name", textContent: label, title: label}), metaEl, onBtn, offBtn));
+
+  let slider = null, sliderOut = null, picker = null, tempSlider = null, tempOut = null;
+  if (caps.brightness) {
+    slider = el("input", {type: "range", min: caps.brightness[0], max: caps.brightness[1], value: caps.brightness[1]});
+    sliderOut = el("output", {textContent: ""});
+    slider.oninput = () => (sliderOut.textContent = slider.value + "%");
+    // "change" fires once when the drag ends, so a drag costs one API call.
+    slider.onchange = () => command("/api/brightness", {target, percent: Number(slider.value)}, {brightness: Number(slider.value)});
+    card.append(el("div", {className: "row"}, el("label", {textContent: "Brightness"}), slider, sliderOut));
+  }
+  if (caps.kelvin) {
+    tempSlider = el("input", {type: "range", min: caps.kelvin[0], max: caps.kelvin[1], step: 100, value: 4000});
+    tempOut = el("output", {textContent: ""});
+    tempSlider.oninput = () => (tempOut.textContent = tempSlider.value + " K");
+    tempSlider.onchange = () => command("/api/temp", {target, kelvin: Number(tempSlider.value)}, {kelvin: Number(tempSlider.value)});
+    card.append(el("div", {className: "row"}, el("label", {textContent: "White"}), tempSlider, tempOut));
+  }
+  if (caps.color) {
+    picker = el("input", {type: "color", value: "#ffffff", ariaLabel: "Colour"});
+    picker.onchange = () => command("/api/color", {target, rgb: unhex(picker.value)}, {rgb: unhex(picker.value), kelvin: 0});
+    card.append(el("div", {className: "row"}, el("label", {textContent: "Colour"}), picker));
+  }
+  const presets = el("div", {className: "presets"});
+  for (const [name, preset] of Object.entries(overview.presets)) {
+    const dot = el("span", {className: "dot"});
+    dot.style.background = preset.rgb ? hex(preset.rgb) : preset.kelvin ? kelvinToCss(preset.kelvin) : "transparent";
+    const button = el("button", {}, dot, name);
+    button.onclick = () => command("/api/preset", {target, preset: name, force: true}, presetChanges(preset));
+    presets.append(button);
+  }
+  card.append(presets);
+
+  return {
+    node: card,
+    // `list` is the state of every light this card controls.
+    update(list) {
+      const online = list.filter((s) => s && s.online);
+      const isGroup = list.length > 1 || meta.includes("light");
+      card.classList.toggle("offline", list.length > 0 && online.length === 0);
+      const anyOn = online.some((s) => s.power);
+      onBtn.classList.toggle("active", anyOn);
+      offBtn.classList.toggle("active", online.length > 0 && !anyOn);
+      const first = online.find((s) => s.power) || online[0];
+      if (!first) {
+        swatch.style.background = "transparent";
+        if (!isGroup && list.length) metaEl.textContent = list[0] && list[0].error ? "error" : "offline";
+        return;
+      }
+      if (!isGroup) metaEl.textContent = meta;
+      else if (list.length) metaEl.textContent = `${online.filter((s) => s.power).length}/${list.length} on`;
+      const css = first.kelvin ? kelvinToCss(first.kelvin) : first.rgb ? hex(first.rgb) : "transparent";
+      swatch.style.background = first.power ? css : "transparent";
+      const editing = document.activeElement;
+      if (slider && first.brightness != null && editing !== slider) { slider.value = first.brightness; sliderOut.textContent = first.brightness + "%"; }
+      if (tempSlider && first.kelvin && editing !== tempSlider) { tempSlider.value = first.kelvin; tempOut.textContent = first.kelvin + " K"; }
+      if (tempOut && !first.kelvin) tempOut.textContent = "";
+      if (picker && first.rgb && !first.kelvin && editing !== picker) picker.value = hex(first.rgb);
+    },
+  };
+}
+
+// The controls a group offers are the ones all its members share.
+function groupCaps(members) {
+  const range = (key) => {
+    const ranges = members.map((d) => d[key]);
+    if (!ranges.length || ranges.some((r) => !r)) return null;
+    const low = Math.max(...ranges.map((r) => r[0])), high = Math.min(...ranges.map((r) => r[1]));
+    return low <= high ? [low, high] : null;
+  };
+  return {brightness: range("brightness"), kelvin: range("kelvin"), color: members.length > 0 && members.every((d) => d.color)};
+}
+
+function build() {
+  const byId = Object.fromEntries(overview.devices.map((d) => [d.device, d]));
+  $("groups").replaceChildren();
+  $("lights").replaceChildren();
+  cards.clear();
+  for (const [name, ids] of Object.entries(overview.groups)) {
+    if (!ids.length) continue;
+    const card = buildCard(name, name, `${ids.length} lights`, groupCaps(ids.map((id) => byId[id])));
+    cards.set(name, {card, ids});
+    $("groups").append(card.node);
+  }
+  for (const device of overview.devices) {
+    const card = buildCard(device.device, device.name, device.sku, device);
+    cards.set(device.device, {card, ids: [device.device]});
+    $("lights").append(card.node);
+  }
+}
+
+function render() {
+  for (const {card, ids} of cards.values()) card.update(ids.map((id) => states[id]).filter(Boolean));
+}
+
+async function loadState(fresh = false) {
+  try {
+    states = await api(`/api/state?target=all${fresh ? "&fresh=true" : ""}`);
+    render();
+    const offline = Object.values(states).filter((s) => !s.online).length;
+    $("status").textContent = `Updated ${new Date().toLocaleTimeString()}` + (offline ? ` · ${offline} offline` : "");
+  } catch (error) {
+    $("status").textContent = "Could not read state";
+    toast(error.message, "bad");
+  }
+}
+
+// Poll only while the page is on screen: every poll costs one request per light.
+function schedule() {
+  clearInterval(pollTimer);
+  if (document.visibilityState !== "visible" || !overview) return;
+  pollTimer = setInterval(loadState, Math.max(10, overview.poll_seconds) * 1000);
+}
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "visible" && overview) loadState();
+  schedule();
+});
+
+$("refresh").onclick = () => loadState(true);
+$("snap").onclick = async () => {
+  try {
+    const snap = await api("/api/snapshot", {target: "all"});
+    const left = snap.skipped.length ? ` (${snap.skipped.length} offline left out)` : "";
+    toast(`Snapshot saved: ${snap.devices.length} lights${left}`);
+  } catch (error) { toast(error.message, "bad"); }
+};
+$("restore").onclick = async () => {
+  if (await command("/api/restore", {snapshot_id: "latest"})) { toast("Restored latest snapshot"); loadState(true); }
+};
+
+(async () => {
+  try {
+    overview = await api("/api/overview");
+    build();
+    await loadState();
+    schedule();
+  } catch (error) {
+    $("status").textContent = "Could not load";
+    toast(error.message, "bad");
+  }
+})();
+</script>
+</body>
+</html>

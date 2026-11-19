@@ -1,0 +1,62 @@
+{
+ "requestId": "00000000-0000-0000-0000-000000000000",
+ "msg": "success",
+ "code": 200,
+ "payload": {
+  "sku": "H600D",
+  "device": "AA:BB:CC:DD:EE:FF:00:16",
+  "capabilities": [
+   {
+    "type": "devices.capabilities.dynamic_scene",
+    "instance": "lightScene",
+    "parameters": {
+     "dataType": "ENUM",
+     "options": [
+      {
+       "name": "Dusk",
+       "value": {
+        "id": 1172,
+        "paramId": 1234
+       }
+      },
+      {
+       "name": "Sunset Glow",
+       "value": {
+        "id": 1173,
+        "paramId": 1235
+       }
+      },
+      {
+       "name": "Starry Sky",
+       "value": {
+        "id": 1174,
+        "paramId": 1236
+       }
+      },
+      {
+       "name": "Forest",
+       "value": {
+        "id": 1175,
+        "paramId": 1237
+       }
+      },
+      {
+       "name": "River",
+       "value": {
+        "id": 1176,
+        "paramId": 1238
+       }
+      },
+      {
+       "name": "Desert",
+       "value": {
+        "id": 1177,
+        "paramId": 1239
+       }
+      }
+     ]
+    }
+   }
+  ]
+ }
+}

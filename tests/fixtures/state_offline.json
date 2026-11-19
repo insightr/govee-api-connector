@@ -1,0 +1,67 @@
+{
+ "requestId": "00000000-0000-0000-0000-000000000000",
+ "msg": "success",
+ "code": 200,
+ "payload": {
+  "sku": "H600D",
+  "device": "AA:BB:CC:DD:EE:FF:00:16",
+  "capabilities": [
+   {
+    "type": "devices.capabilities.online",
+    "instance": "online",
+    "state": {
+     "value": false
+    }
+   },
+   {
+    "type": "devices.capabilities.on_off",
+    "instance": "powerSwitch",
+    "state": {
+     "value": ""
+    }
+   },
+   {
+    "type": "devices.capabilities.range",
+    "instance": "brightness",
+    "state": {
+     "value": ""
+    }
+   },
+   {
+    "type": "devices.capabilities.color_setting",
+    "instance": "colorRgb",
+    "state": {
+     "value": ""
+    }
+   },
+   {
+    "type": "devices.capabilities.color_setting",
+    "instance": "colorTemperatureK",
+    "state": {
+     "value": ""
+    }
+   },
+   {
+    "type": "devices.capabilities.music_setting",
+    "instance": "musicMode",
+    "state": {
+     "value": ""
+    }
+   },
+   {
+    "type": "devices.capabilities.dynamic_scene",
+    "instance": "lightScene",
+    "state": {
+     "value": ""
+    }
+   },
+   {
+    "type": "devices.capabilities.dynamic_scene",
+    "instance": "diyScene",
+    "state": {
+     "value": ""
+    }
+   }
+  ]
+ }
+}

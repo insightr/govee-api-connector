@@ -1,0 +1,26 @@
+# Groups and presets. Edit freely; no code changes needed.
+
+# How often the web page re-reads bulb state, in seconds. Each poll costs one
+# API request per bulb, and Govee caps requests per day, so keep this high.
+poll_seconds: 60
+
+# A group is "*" (every light), or a list of light names or device IDs.
+# Names may use * as a wildcard and are not case-sensitive.
+groups:
+  all: "*"
+  garden: ["Garden *"]
+  garden_top: ["Garden * top"]
+  garden_bottom: ["Garden * bottom"]
+  balcony: ["Balcony *"]
+  cinema: ["Cinema Left", "Cinema Right"]
+  sofa: ["Sofa Left", "Sofa Right"]
+  theatre: ["Cinema *", "Sofa *"]
+
+# A preset sets a colour (rgb) or a white temperature (kelvin), and
+# optionally a brightness. Applying a preset also turns the lights on.
+presets:
+  green:  {rgb: [0, 255, 0],   brightness: 100}
+  yellow: {rgb: [255, 200, 0], brightness: 100}
+  orange: {rgb: [255, 100, 0], brightness: 100}
+  red:    {rgb: [255, 0, 0],   brightness: 100}
+  white:  {kelvin: 4000,       brightness: 100}
