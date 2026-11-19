@@ -4,8 +4,9 @@ Control Govee lights through the Govee cloud API, from a command line and a
 local web page. Built for H600D bulbs, which cannot be added to Home Assistant
 directly, but it works with any light the Govee API lists.
 
-This is phase 1. Phase 2 will drive the same lights from live Formula 1 track
-status by calling `LightService` (see [Using it from code](#using-it-from-code)).
+Phase 2 puts the bulbs into Home Assistant and drives them from live Formula 1
+track status. That part is a Home Assistant package, not Python: see
+[docs/home-assistant.md](docs/home-assistant.md).
 
 ## Setup
 

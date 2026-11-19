@@ -1,0 +1,184 @@
+# F1 track status lighting for Home Assistant.
+#
+# Needs: the F1 Sensor integration with live data enabled, and the Govee bulbs
+# present as light entities. Setup steps are in docs/home-assistant.md.
+#
+# Things you may want to change are marked EDIT.
+
+# ---- Which lights follow the race ------------------------------------------
+light:
+  - platform: group
+    name: F1 lights
+    unique_id: f1_lights
+    entities:
+      # EDIT: these must match your entity IDs (Developer Tools > States).
+      - light.cinema_left
+      - light.cinema_right
+      - light.sofa_left
+      - light.sofa_right
+      - light.balcony_lh_top
+      - light.balcony_lh_bottom
+      - light.balcony_m_top
+      - light.balcony_m_bottom
+      - light.balcony_rh_top
+      - light.balcony_rh_bottom
+      - light.garden_lh_back_top
+      - light.garden_lh_back_bottom
+      - light.garden_lh_front_top
+      - light.garden_lh_front_bottom
+      - light.garden_rh_back_top
+      - light.garden_rh_back_bottom
+      - light.garden_rh_front_top
+      - light.garden_rh_front_bottom
+
+# ---- Controls for the dashboard --------------------------------------------
+input_boolean:
+  f1_lights_enabled:
+    name: F1 lights enabled
+    icon: mdi:flag-checkered
+
+input_number:
+  f1_lights_delay:
+    name: F1 lights extra delay
+    icon: mdi:timer-outline
+    min: 0
+    max: 120
+    step: 1
+    unit_of_measurement: s
+    mode: box
+
+# ---- When the lights should be following the track ---------------------------
+template:
+  - binary_sensor:
+      - name: F1 lights active
+        unique_id: f1_lights_active
+        icon: mdi:car-sports
+        # On while the switch is on and a chosen session is running.
+        # "suspended" (red flag) and "break" (between qualifying parts) keep it on.
+        state: >
+          {{ is_state('input_boolean.f1_lights_enabled', 'on')
+             and states('sensor.f1_session_status') in ['live', 'suspended', 'break']
+             and states('sensor.f1_current_session') in
+               ['Race', 'Sprint', 'Qualifying', 'Sprint Qualifying'] }}
+        # EDIT: add 'Practice 1', 'Practice 2', 'Practice 3' above to include practice.
+
+script:
+  f1_lights_apply:
+    alias: F1 lights - show track status
+    description: Set the F1 lights to the colour for a track status. Defaults to the current one.
+    mode: restart
+    fields:
+      status:
+        description: CLEAR, YELLOW, VSC, SC or RED. Leave empty to use the live status.
+        example: YELLOW
+    variables:
+      # EDIT: colours as [red, green, blue], each 0 to 255.
+      colours:
+        CLEAR: [0, 255, 0]
+        YELLOW: [255, 200, 0]
+        VSC: [255, 100, 0]
+        SC: [255, 100, 0]
+        RED: [255, 0, 0]
+      # EDIT: brightness in percent.
+      brightness: 100
+      key: "{{ status | default(states('sensor.f1_track_status'), true) }}"
+    sequence:
+      - condition: template
+        value_template: "{{ key in colours }}"
+      - action: light.turn_on
+        target:
+          entity_id: light.f1_lights
+        data:
+          rgb_color: "{{ colours[key] }}"
+          brightness_pct: "{{ brightness }}"
+
+  f1_lights_save:
+    alias: F1 lights - remember current lighting
+    sequence:
+      - action: scene.create
+        data:
+          scene_id: f1_lights_before
+          snapshot_entities: "{{ expand('light.f1_lights') | map(attribute='entity_id') | list }}"
+
+  f1_lights_restore:
+    alias: F1 lights - put lighting back
+    sequence:
+      # Do nothing if no lighting has been saved yet.
+      - condition: template
+        value_template: "{{ states.scene.f1_lights_before is not none }}"
+      - action: scene.turn_on
+        target:
+          entity_id: scene.f1_lights_before
+
+  f1_lights_test:
+    alias: F1 lights - test every colour
+    description: Saves the lighting, shows each track status for 5 seconds, then puts it back.
+    mode: single
+    sequence:
+      - action: script.f1_lights_save
+      - repeat:
+          for_each: [CLEAR, YELLOW, VSC, RED, CLEAR]
+          sequence:
+            - action: script.f1_lights_apply
+              data:
+                status: "{{ repeat.item }}"
+            - delay: 5
+      - action: script.f1_lights_restore
+
+automation:
+  - id: f1_lights_session_start
+    alias: F1 lights - session start
+    mode: single
+    triggers:
+      - trigger: state
+        entity_id: binary_sensor.f1_lights_active
+        from: "off"
+        to: "on"
+    actions:
+      - action: script.f1_lights_save
+      - action: script.f1_lights_apply
+
+  - id: f1_lights_track_status
+    alias: F1 lights - track status change
+    # restart: a newer status replaces one still waiting out the delay.
+    mode: restart
+    triggers:
+      - trigger: state
+        entity_id: sensor.f1_track_status
+    conditions:
+      - condition: state
+        entity_id: binary_sensor.f1_lights_active
+        state: "on"
+      - condition: template
+        value_template: "{{ trigger.to_state.state != trigger.from_state.state }}"
+    actions:
+      - delay:
+          seconds: "{{ states('input_number.f1_lights_delay') | float(0) }}"
+      - action: script.f1_lights_apply
+
+  - id: f1_lights_session_end
+    alias: F1 lights - session end
+    mode: restart
+    triggers:
+      - trigger: state
+        entity_id: binary_sensor.f1_lights_active
+        from: "on"
+        to: "off"
+    actions:
+      # If the session finished (rather than the switch being turned off),
+      # show white for a minute first.
+      - if:
+          - condition: state
+            entity_id: input_boolean.f1_lights_enabled
+            state: "on"
+        then:
+          - delay:
+              seconds: "{{ states('input_number.f1_lights_delay') | float(0) }}"
+          - action: light.turn_on
+            target:
+              entity_id: light.f1_lights
+            data:
+              color_temp_kelvin: 4000
+              brightness_pct: 100
+          - delay: 60
+      - action: script.f1_lights_restore
