@@ -54,8 +54,27 @@ Do not run both options at once; they would double the API usage.
 
 ### Check
 
-Developer Tools > States, filter by `light.`. There should be one entity per
-bulb. Toggle one and confirm the real bulb responds.
+Settings > Devices & Services > MQTT lists a device per bulb. Each has four
+entities, and nothing is hidden:
+
+| Entity | What it is |
+| --- | --- |
+| The one with the bulb's own name (`light.cinema_left`) | The light itself. Brightness, colour, white temperature and Govee scenes (as "effects") are all controls on this one entity. Click it to open them. |
+| Power Switch | A plain on/off duplicate of the light. |
+| Request Platform API State | A button that forces a refresh from Govee. |
+| Status | A diagnostic sensor holding the raw Govee data. |
+
+Open one light, change its colour, and confirm the real bulb follows.
+
+Devices named after groups in the Govee app (for example "Theatre all") also
+appear, with an unknown state. Govee's API only offers on/off for them;
+ignore them.
+
+To list every light entity ID, go to Developer Tools > Template and paste:
+
+```
+{{ states.light | map(attribute='entity_id') | join('\n') }}
+```
 
 If neither option shows the H600D bulbs, stop here: the fallback is to build
 our own integration from this repository's client, which is known to work
