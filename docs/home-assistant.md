@@ -128,8 +128,10 @@ bulbs, a dashboard switch, a delay setting and the automations.
    then Restart.
 5. **Confirm it loaded.** Developer Tools > States, filter `f1_lights`. You
    should see `input_boolean.f1_lights_enabled`,
-   `input_number.f1_lights_delay` and `binary_sensor.f1_lights_active`. Add
-   those three to a dashboard.
+   `input_boolean.f1_lights_rehearsal`,
+   `input_select.f1_lights_rehearsal_status`, `input_number.f1_lights_delay`,
+   `binary_sensor.f1_lights_active` and `sensor.f1_lights_track_status`. Add
+   them to a dashboard.
 
 ### Test without a race
 
@@ -140,6 +142,21 @@ take part.
 
 To show one status by hand, run `script.f1_lights_apply` with
 `status: YELLOW`.
+
+### Rehearse the automation
+
+The test script only checks the colours. To check the automation itself
+without waiting for a session:
+
+1. Turn on **F1 lights enabled**.
+2. Turn on **F1 lights rehearsal**. The lights are saved and then show the
+   status selected in **F1 lights rehearsal status**.
+3. Change the dropdown (CLEAR, YELLOW, VSC, SC, RED). The lights follow.
+4. Turn **F1 lights rehearsal** off. The lights return to how they were.
+
+While rehearsal is on, the F1 Sensor's values are ignored. Do not rehearse by
+editing the F1 sensors in Developer Tools > States: the integration writes
+its own values back.
 
 ### Tuning
 
