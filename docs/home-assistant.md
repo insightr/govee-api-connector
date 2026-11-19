@@ -126,12 +126,34 @@ bulbs, a dashboard switch, a delay setting and the automations.
    integration's options.
 4. **Validate and restart.** Developer Tools > YAML > Check configuration,
    then Restart.
-5. **Confirm it loaded.** Developer Tools > States, filter `f1_lights`. You
-   should see `input_boolean.f1_lights_enabled`,
-   `input_boolean.f1_lights_rehearsal`,
-   `input_select.f1_lights_rehearsal_status`, `input_number.f1_lights_delay`,
-   `binary_sensor.f1_lights_active` and `sensor.f1_lights_track_status`. Add
-   them to a dashboard.
+5. **Confirm it loaded.** Developer Tools > Template, paste this, and check
+   that no line says `unknown`:
+
+   ```
+   {% for e in ['input_boolean.f1_lights_enabled', 'input_boolean.f1_lights_rehearsal', 'input_select.f1_lights_rehearsal_status', 'input_number.f1_lights_delay', 'binary_sensor.f1_lights_active', 'sensor.f1_lights_track_status', 'script.f1_lights_apply', 'script.f1_lights_save', 'script.f1_lights_restore', 'script.f1_lights_test', 'automation.f1_lights_session_start', 'automation.f1_lights_track_status_change', 'automation.f1_lights_session_end'] %}
+   {{ e }}: {{ states(e) }}
+   {% endfor %}
+   ```
+
+   If some are `unknown`, a section of the file was rejected. Settings >
+   System > Logs, search for `package` or `f1_lights`, shows why.
+6. **Add the controls to a dashboard.** The package does not create a card.
+   Open a dashboard, Edit > Add card > Manual, and paste:
+
+   ```yaml
+   type: entities
+   title: F1 lights
+   entities:
+     - input_boolean.f1_lights_enabled
+     - input_boolean.f1_lights_rehearsal
+     - input_select.f1_lights_rehearsal_status
+     - input_number.f1_lights_delay
+     - binary_sensor.f1_lights_active
+     - sensor.f1_lights_track_status
+   ```
+
+   Use this card to flip the switches. Typing a state into Developer Tools >
+   States is not the same as turning a switch on.
 
 ### Test without a race
 
