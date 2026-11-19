@@ -141,8 +141,8 @@ To show one status by hand, run `script.f1_lights_apply` with
 
 ### Tuning
 
-- **Colours and brightness** are at the top of `script.f1_lights_apply` in
-  the file, marked `EDIT`. After editing, Developer Tools > YAML > reload
+- **Colours and brightness** are in `script.f1_lights_apply` in the file,
+  one `rgb_color` and `brightness_pct` per track status, marked `EDIT`. After editing, Developer Tools > YAML > reload
   Scripts.
 - **Spoilers.** Live timing runs ahead of TV and streaming pictures, so the
   lights can change before you see the incident. Prefer the F1 Sensor

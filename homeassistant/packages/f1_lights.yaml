@@ -71,26 +71,43 @@ script:
       status:
         description: CLEAR, YELLOW, VSC, SC or RED. Leave empty to use the live status.
         example: YELLOW
-    variables:
-      # EDIT: colours as [red, green, blue], each 0 to 255.
-      colours:
-        CLEAR: [0, 255, 0]
-        YELLOW: [255, 200, 0]
-        VSC: [255, 100, 0]
-        SC: [255, 100, 0]
-        RED: [255, 0, 0]
-      # EDIT: brightness in percent.
-      brightness: 100
-      key: "{{ status | default(states('sensor.f1_track_status'), true) }}"
     sequence:
-      - condition: template
-        value_template: "{{ key in colours }}"
-      - action: light.turn_on
-        target:
-          entity_id: light.f1_lights
-        data:
-          rgb_color: "{{ colours[key] }}"
-          brightness_pct: "{{ brightness }}"
+      - variables:
+          track_status: "{{ status | default(states('sensor.f1_track_status'), true) }}"
+      # EDIT: colours are [red, green, blue], each 0 to 255. brightness_pct is 1 to 100.
+      - choose:
+          - conditions: "{{ track_status == 'CLEAR' }}"
+            sequence:
+              - action: light.turn_on
+                target:
+                  entity_id: light.f1_lights
+                data:
+                  rgb_color: [0, 255, 0]
+                  brightness_pct: 100
+          - conditions: "{{ track_status == 'YELLOW' }}"
+            sequence:
+              - action: light.turn_on
+                target:
+                  entity_id: light.f1_lights
+                data:
+                  rgb_color: [255, 200, 0]
+                  brightness_pct: 100
+          - conditions: "{{ track_status in ['VSC', 'SC'] }}"
+            sequence:
+              - action: light.turn_on
+                target:
+                  entity_id: light.f1_lights
+                data:
+                  rgb_color: [255, 100, 0]
+                  brightness_pct: 100
+          - conditions: "{{ track_status == 'RED' }}"
+            sequence:
+              - action: light.turn_on
+                target:
+                  entity_id: light.f1_lights
+                data:
+                  rgb_color: [255, 0, 0]
+                  brightness_pct: 100
 
   f1_lights_save:
     alias: F1 lights - remember current lighting
