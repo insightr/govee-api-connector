@@ -1,35 +1,10 @@
 # F1 track status lighting for Home Assistant.
 #
 # Needs: the F1 Sensor integration with live data enabled, and the Govee bulbs
-# present as light entities. Setup steps are in docs/home-assistant.md.
+# present as light entities. The list of bulbs is in the first script below.
+# Setup steps are in docs/home-assistant.md.
 #
 # Things you may want to change are marked EDIT.
-
-# ---- Which lights follow the race ------------------------------------------
-light:
-  - platform: group
-    name: F1 lights
-    unique_id: f1_lights
-    entities:
-      # EDIT: these must match your entity IDs (Developer Tools > States).
-      - light.cinema_left
-      - light.cinema_right
-      - light.sofa_left
-      - light.sofa_right
-      - light.balcony_lh_top
-      - light.balcony_lh_bottom
-      - light.balcony_m_top
-      - light.balcony_m_bottom
-      - light.balcony_rh_top
-      - light.balcony_rh_bottom
-      - light.garden_lh_back_top
-      - light.garden_lh_back_bottom
-      - light.garden_lh_front_top
-      - light.garden_lh_front_bottom
-      - light.garden_rh_back_top
-      - light.garden_rh_back_bottom
-      - light.garden_rh_front_top
-      - light.garden_rh_front_bottom
 
 # ---- Controls for the dashboard --------------------------------------------
 input_boolean:
@@ -63,6 +38,35 @@ template:
         # EDIT: add 'Practice 1', 'Practice 2', 'Practice 3' above to include practice.
 
 script:
+  f1_lights_save:
+    alias: F1 lights - remember current lighting
+    sequence:
+      - action: scene.create
+        data:
+          scene_id: f1_lights_before
+          # ---- Which lights follow the race ----
+          # EDIT: this is the one list of lights. Every other step reuses it
+          # (wherever you see *f1_lights). IDs must match Developer Tools > States.
+          snapshot_entities: &f1_lights
+            - light.cinema_left
+            - light.cinema_right
+            - light.sofa_left
+            - light.sofa_right
+            - light.balcony_lh_top
+            - light.balcony_lh_bottom
+            - light.balcony_m_top
+            - light.balcony_m_bottom
+            - light.balcony_rh_top
+            - light.balcony_rh_bottom
+            - light.garden_lh_back_top
+            - light.garden_lh_back_bottom
+            - light.garden_lh_front_top
+            - light.garden_lh_front_bottom
+            - light.garden_rh_back_top
+            - light.garden_rh_back_bottom
+            - light.garden_rh_front_top
+            - light.garden_rh_front_bottom
+
   f1_lights_apply:
     alias: F1 lights - show track status
     description: Set the F1 lights to the colour for a track status. Defaults to the current one.
@@ -80,7 +84,7 @@ script:
             sequence:
               - action: light.turn_on
                 target:
-                  entity_id: light.f1_lights
+                  entity_id: *f1_lights
                 data:
                   rgb_color: [0, 255, 0]
                   brightness_pct: 100
@@ -88,7 +92,7 @@ script:
             sequence:
               - action: light.turn_on
                 target:
-                  entity_id: light.f1_lights
+                  entity_id: *f1_lights
                 data:
                   rgb_color: [255, 200, 0]
                   brightness_pct: 100
@@ -96,7 +100,7 @@ script:
             sequence:
               - action: light.turn_on
                 target:
-                  entity_id: light.f1_lights
+                  entity_id: *f1_lights
                 data:
                   rgb_color: [255, 100, 0]
                   brightness_pct: 100
@@ -104,18 +108,10 @@ script:
             sequence:
               - action: light.turn_on
                 target:
-                  entity_id: light.f1_lights
+                  entity_id: *f1_lights
                 data:
                   rgb_color: [255, 0, 0]
                   brightness_pct: 100
-
-  f1_lights_save:
-    alias: F1 lights - remember current lighting
-    sequence:
-      - action: scene.create
-        data:
-          scene_id: f1_lights_before
-          snapshot_entities: "{{ expand('light.f1_lights') | map(attribute='entity_id') | list }}"
 
   f1_lights_restore:
     alias: F1 lights - put lighting back
@@ -193,7 +189,7 @@ automation:
               seconds: "{{ states('input_number.f1_lights_delay') | float(0) }}"
           - action: light.turn_on
             target:
-              entity_id: light.f1_lights
+              entity_id: *f1_lights
             data:
               color_temp_kelvin: 4000
               brightness_pct: 100

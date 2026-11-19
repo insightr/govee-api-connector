@@ -82,8 +82,8 @@ with them.
 
 ## Part 2: F1 lighting package
 
-`homeassistant/packages/f1_lights.yaml` contains everything: the light group,
-a dashboard switch, a delay setting and the automations.
+`homeassistant/packages/f1_lights.yaml` contains everything: the list of
+bulbs, a dashboard switch, a delay setting and the automations.
 
 ### What it does
 
@@ -117,17 +117,19 @@ a dashboard switch, a delay setting and the automations.
 2. **Copy the file** to `/config/packages/f1_lights.yaml` (create the
    `packages` folder). The *File editor* or *Studio Code Server* add-on is
    the easiest way.
-3. **Check the entity IDs.** The list under `light:` at the top of the file
-   assumes names like `light.cinema_left`. Compare with Developer Tools >
+3. **Check the entity IDs.** The list of bulbs is in the first script in the
+   file (`f1_lights_save`), marked `EDIT`. It assumes names like
+   `light.cinema_left`. Compare with Developer Tools >
    States and correct any that differ. Also confirm you have
    `sensor.f1_track_status`, `sensor.f1_session_status` and
    `sensor.f1_current_session`; if not, enable live data in the F1 Sensor
    integration's options.
 4. **Validate and restart.** Developer Tools > YAML > Check configuration,
    then Restart.
-5. **Add to a dashboard**: `input_boolean.f1_lights_enabled`,
-   `input_number.f1_lights_delay`, `binary_sensor.f1_lights_active` and
-   `light.f1_lights`.
+5. **Confirm it loaded.** Developer Tools > States, filter `f1_lights`. You
+   should see `input_boolean.f1_lights_enabled`,
+   `input_number.f1_lights_delay` and `binary_sensor.f1_lights_active`. Add
+   those three to a dashboard.
 
 ### Test without a race
 
