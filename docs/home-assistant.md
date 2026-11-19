@@ -11,25 +11,35 @@ Govee's cloud API. The two below do, with the same key the `govee` command
 uses, so the H600D bulbs should appear. Try them in order and stop at the
 first one that works.
 
-### Option A: Govee2MQTT add-on (try first)
+### Option A: Govee2MQTT app (try first)
 
-1. **Mosquitto broker.** Settings > Add-ons > Add-on Store, install
+Recent Home Assistant versions call add-ons "apps". If your menus still say
+"Add-ons", the steps are the same.
+
+1. **Mosquitto broker.** Settings > Apps > Install app, install
    *Mosquitto broker*, start it.
 2. **MQTT integration.** Settings > Devices & Services. Home Assistant should
    offer *MQTT* as discovered; click Configure and accept. If it is not
    offered, use Add Integration and search for MQTT.
-3. **Advanced mode.** Click your profile (bottom left) and switch on
-   *Advanced Mode*. The add-on is hidden without it.
-4. **Add the repository.** Add-on Store > three-dot menu (top right) >
-   Repositories, add `https://github.com/wez/govee2mqtt`, close.
-5. **Install** *Govee2MQTT* from the store (refresh the page if it is not listed).
-6. **Configure.** On the add-on's Configuration tab, tick *Show unused
-   optional configuration options* and fill in your Govee account email,
-   password and API key. The email and password let it receive state changes
-   as they happen instead of polling. Save.
-7. **Start** it from the Info tab and watch the Log tab.
-8. After a few seconds, Settings > Devices & Services > MQTT should list your
+3. **Add the repository.** Settings > Apps > Install app, then the three-dot
+   menu (top right) > Repositories. Add `https://github.com/wez/govee2mqtt`.
+   "Govee to MQTT Bridge" appears in the list.
+4. **Go back to the store** with the back arrow and refresh the browser page.
+   A *Govee2MQTT* card is now at the bottom of the store (or search for
+   `govee`). Open it and click Install.
+5. **Configure.** On the app's Configuration tab, tick *Show unused optional
+   configuration options* and enter **only the API key**. Leave the Govee
+   email and password empty. Save.
+6. **Start** it from the Info tab and watch the Log tab.
+7. Within a minute, Settings > Devices & Services > MQTT should list your
    Govee devices.
+
+**Why no email and password:** Govee now asks for an emailed verification
+code when an account logs in from a new client. Govee2MQTT cannot enter one,
+so with the email and password set it stops at start-up with
+`login failed with code 454` and restarts in a loop. The API key alone is
+enough to control the bulbs. The only loss is that changes made in the Govee
+app reach Home Assistant by polling, so they show a little later.
 
 ### Option B: GoveeLife (if option A does not show the H600Ds)
 
