@@ -234,25 +234,29 @@ and submit.
 
 | Name to type | Members |
 | --- | --- |
-| `Garden lights` | all 8 Garden bulbs |
-| `Garden top lights` | the 4 Garden bulbs ending "top" |
-| `Garden bottom lights` | the 4 Garden bulbs ending "bottom" |
-| `Balcony lights` | all 6 Balcony bulbs |
-| `Balcony top lights` | Balcony LH top, M top, RH top |
-| `Balcony bottom lights` | Balcony LH bottom, M bottom, RH bottom |
-| `Theatre lights` | Cinema Left, Cinema Right, Sofa Left, Sofa Right |
-| `Screen lights` | Cinema Left, Cinema Right |
-| `Sofa lights` | Sofa Left, Sofa Right |
+| `Garden All` | all 8 Garden bulbs |
+| `Garden Top` | the 4 Garden bulbs ending "top" |
+| `Garden Bottom` | the 4 Garden bulbs ending "bottom" |
+| `BBQ All` | all 6 Balcony bulbs |
+| `BBQ Top` | Balcony LH top, M top, RH top |
+| `BBQ Bottom` | Balcony LH bottom, M bottom, RH bottom |
+| `Rooftop All` | Cinema Left, Cinema Right, Sofa Left, Sofa Right |
+| `Rooftop Screen` | Cinema Left, Cinema Right |
+| `Rooftop Sofa` | Sofa Left, Sofa Right |
+
+These are Home Assistant light groups, not the groups from the Govee app.
+Govee app groups also appear in Home Assistant (for example "Theatre all"),
+but only as on/off switches, and the dashboard cannot use them.
 
 The names matter because Home Assistant builds the entity ID from them
-(`Garden top lights` becomes `light.garden_top_lights`), and the dashboard
+(`Garden Top` becomes `light.garden_top`), and the dashboard
 refers to those IDs.
 
 Check them: Developer Tools > Template, paste this, and confirm no line says
 `unknown`:
 
 ```
-{% for e in ['light.garden_lights', 'light.garden_top_lights', 'light.garden_bottom_lights', 'light.balcony_lights', 'light.balcony_top_lights', 'light.balcony_bottom_lights', 'light.theatre_lights', 'light.screen_lights', 'light.sofa_lights'] %}
+{% for e in ['light.garden_all', 'light.garden_top', 'light.garden_bottom', 'light.bbq_all', 'light.bbq_top', 'light.bbq_bottom', 'light.rooftop_all', 'light.rooftop_screen', 'light.rooftop_sofa'] %}
 {{ e }}: {{ states(e) }}
 {% endfor %}
 ```

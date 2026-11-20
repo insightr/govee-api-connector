@@ -1,7 +1,7 @@
 # Govee lights dashboard for Home Assistant.
 #
 # Paste the whole file into a new dashboard's raw configuration editor.
-# Setup steps, including the nine light groups it needs, are in
+# Setup steps, including the nine light groups it uses, are in
 # docs/home-assistant.md (Part 3).
 #
 # Tap a tile to open the colour wheel, white temperature and scene list.
@@ -18,10 +18,10 @@ views:
           - type: heading
             heading: Garden
             icon: mdi:flower
-          # The whole area. Needs the light group helper light.garden_lights.
+          # The whole area. Needs the light group helper light.garden_all.
           - type: tile
-            entity: light.garden_lights
-            name: All garden
+            entity: light.garden_all
+            name: Garden All
             features_position: bottom
             features:
               - type: light-brightness
@@ -30,16 +30,16 @@ views:
               columns: full
           # Sub-groups.
           - type: tile
-            entity: light.garden_top_lights
-            name: Garden top
+            entity: light.garden_top
+            name: Garden Top
             features_position: bottom
             features:
               - type: light-brightness
             grid_options:
               columns: 6
           - type: tile
-            entity: light.garden_bottom_lights
-            name: Garden bottom
+            entity: light.garden_bottom
+            name: Garden Bottom
             features_position: bottom
             features:
               - type: light-brightness
@@ -204,12 +204,12 @@ views:
       - type: grid
         cards:
           - type: heading
-            heading: Balcony
-            icon: mdi:balcony
-          # The whole area. Needs the light group helper light.balcony_lights.
+            heading: BBQ
+            icon: mdi:grill
+          # The whole area. Needs the light group helper light.bbq_all.
           - type: tile
-            entity: light.balcony_lights
-            name: All balcony
+            entity: light.bbq_all
+            name: BBQ All
             features_position: bottom
             features:
               - type: light-brightness
@@ -218,16 +218,16 @@ views:
               columns: full
           # Sub-groups.
           - type: tile
-            entity: light.balcony_top_lights
-            name: Balcony top
+            entity: light.bbq_top
+            name: BBQ Top
             features_position: bottom
             features:
               - type: light-brightness
             grid_options:
               columns: 6
           - type: tile
-            entity: light.balcony_bottom_lights
-            name: Balcony bottom
+            entity: light.bbq_bottom
+            name: BBQ Bottom
             features_position: bottom
             features:
               - type: light-brightness
@@ -368,12 +368,12 @@ views:
       - type: grid
         cards:
           - type: heading
-            heading: Rooftop Cinema
+            heading: Rooftop
             icon: mdi:theater
-          # The whole area. Needs the light group helper light.theatre_lights.
+          # The whole area. Needs the light group helper light.rooftop_all.
           - type: tile
-            entity: light.theatre_lights
-            name: All theatre
+            entity: light.rooftop_all
+            name: Rooftop All
             features_position: bottom
             features:
               - type: light-brightness
@@ -382,16 +382,16 @@ views:
               columns: full
           # Sub-groups.
           - type: tile
-            entity: light.screen_lights
-            name: Screen
+            entity: light.rooftop_screen
+            name: Rooftop Screen
             features_position: bottom
             features:
               - type: light-brightness
             grid_options:
               columns: 6
           - type: tile
-            entity: light.sofa_lights
-            name: Sofa
+            entity: light.rooftop_sofa
+            name: Rooftop Sofa
             features_position: bottom
             features:
               - type: light-brightness
