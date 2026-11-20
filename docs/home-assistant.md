@@ -212,3 +212,104 @@ its own values back.
   until you change it.
 - A bulb that was running a Govee scene comes back with its colour and
   brightness, not the scene.
+
+## Part 3: everyday lights dashboard
+
+`homeassistant/dashboards/govee_lights.yaml` is a dashboard for controlling
+the Govee bulbs day to day, by area, by sub-group and one at a time. It uses
+only Home Assistant's built-in cards.
+
+Nothing new needs installing. Govee2MQTT already makes each bulb a full
+light, with brightness, colour, white temperature and every Govee scene
+(Home Assistant calls scenes "effects").
+
+### 1. Create the nine light groups
+
+The dashboard has one control per area and per sub-group, so it needs nine
+light groups. Create each one in the UI:
+
+Settings > Devices & Services > Helpers > Create helper > Group > Light group.
+Type the name exactly as shown, tick the members, leave "All entities" off,
+and submit.
+
+| Name to type | Members |
+| --- | --- |
+| `Garden lights` | all 8 Garden bulbs |
+| `Garden top lights` | the 4 Garden bulbs ending "top" |
+| `Garden bottom lights` | the 4 Garden bulbs ending "bottom" |
+| `Balcony lights` | all 6 Balcony bulbs |
+| `Balcony top lights` | Balcony LH top, M top, RH top |
+| `Balcony bottom lights` | Balcony LH bottom, M bottom, RH bottom |
+| `Theatre lights` | Cinema Left, Cinema Right, Sofa Left, Sofa Right |
+| `Screen lights` | Cinema Left, Cinema Right |
+| `Sofa lights` | Sofa Left, Sofa Right |
+
+The names matter because Home Assistant builds the entity ID from them
+(`Garden top lights` becomes `light.garden_top_lights`), and the dashboard
+refers to those IDs.
+
+Check them: Developer Tools > Template, paste this, and confirm no line says
+`unknown`:
+
+```
+{% for e in ['light.garden_lights', 'light.garden_top_lights', 'light.garden_bottom_lights', 'light.balcony_lights', 'light.balcony_top_lights', 'light.balcony_bottom_lights', 'light.theatre_lights', 'light.screen_lights', 'light.sofa_lights'] %}
+{{ e }}: {{ states(e) }}
+{% endfor %}
+```
+
+If one is `unknown`, the name was typed differently. Open that helper
+(Settings > Devices & Services > Helpers), click its settings cog, and change
+the entity ID to the one in the list.
+
+### 2. Create the dashboard
+
+1. Settings > Dashboards > Add dashboard > New dashboard from scratch. Title
+   it `Govee lights` and create it.
+2. Open it, click the pencil (Edit), then the three-dot menu > Raw
+   configuration editor.
+3. Replace everything there with the contents of
+   `homeassistant/dashboards/govee_lights.yaml` and save.
+
+### 3. Using it
+
+Each area has, top to bottom: the whole area, its two sub-groups, four scene
+buttons, then every bulb.
+
+| To do this | Do this |
+| --- | --- |
+| Switch on or off | Tap the round icon on a tile |
+| Change brightness | Drag the tile's slider |
+| Change white temperature | Drag the second slider on an area tile |
+| Pick a colour | Tap the tile, then the colour-wheel button in the pop-up |
+| Pick any Govee scene | Tap the tile, then **Effect** in the pop-up |
+| Set a favourite scene for an area | Tap one of the four scene buttons |
+
+Group tiles act on every bulb in the group. The pop-up for a group also lists
+its bulbs with their own sliders.
+
+### 4. Changing the favourite scenes
+
+Each scene button in the file looks like this:
+
+```yaml
+- type: button
+  name: Movie
+  icon: mdi:movie-open
+  ...
+      data:
+        effect: Movie
+```
+
+Change `name`, `icon` and `effect`. The `effect` must match a scene name in
+the pop-up's Effect list exactly, including capitals. Icons are names from
+<https://pictogrammers.com/library/mdi/> with `mdi:` in front.
+
+### Things to know
+
+- Commands go through Govee's cloud: allow one to two seconds, and a group
+  change is one command per bulb.
+- Changes made in the Govee app show up here after a delay.
+- A bulb switched off at the wall shows as it last was and will not respond.
+- During an F1 session the automation keeps following the track, so a change
+  made here is overridden at the next track status change. Turn
+  **F1 lights enabled** off first if you want manual control.

@@ -7,6 +7,8 @@ directly, but it works with any light the Govee API lists.
 Phase 2 puts the bulbs into Home Assistant and drives them from live Formula 1
 track status. That part is a Home Assistant package, not Python: see
 [docs/home-assistant.md](docs/home-assistant.md).
+The same guide covers a dashboard for everyday control of the bulbs by area
+and individually (brightness, colour, white temperature and Govee scenes).
 
 ## Setup
 

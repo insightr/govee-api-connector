@@ -1,0 +1,530 @@
+# Govee lights dashboard for Home Assistant.
+#
+# Paste the whole file into a new dashboard's raw configuration editor.
+# Setup steps, including the nine light groups it needs, are in
+# docs/home-assistant.md (Part 3).
+#
+# Tap a tile to open the colour wheel, white temperature and scene list.
+# Tap a tile's icon to switch it on or off.
+views:
+  - title: Govee lights
+    path: govee-lights
+    icon: mdi:lightbulb-group
+    type: sections
+    max_columns: 3
+    sections:
+      - type: grid
+        cards:
+          - type: heading
+            heading: Garden
+            icon: mdi:flower
+          # The whole area. Needs the light group helper light.garden_lights.
+          - type: tile
+            entity: light.garden_lights
+            name: All garden
+            features_position: bottom
+            features:
+              - type: light-brightness
+              - type: light-color-temp
+            grid_options:
+              columns: full
+          # Sub-groups.
+          - type: tile
+            entity: light.garden_top_lights
+            name: Garden top
+            features_position: bottom
+            features:
+              - type: light-brightness
+            grid_options:
+              columns: 6
+          - type: tile
+            entity: light.garden_bottom_lights
+            name: Garden bottom
+            features_position: bottom
+            features:
+              - type: light-brightness
+            grid_options:
+              columns: 6
+          # Favourite scenes for every bulb in the area. To change one, edit
+          # its name, icon and effect; the effect must match a scene name in
+          # the light's scene list exactly.
+          - type: button
+            name: Movie
+            icon: mdi:movie-open
+            show_state: false
+            tap_action:
+              action: perform-action
+              perform_action: light.turn_on
+              target:
+                entity_id:
+                  - light.garden_lh_back_top
+                  - light.garden_lh_back_bottom
+                  - light.garden_lh_front_top
+                  - light.garden_lh_front_bottom
+                  - light.garden_rh_back_top
+                  - light.garden_rh_back_bottom
+                  - light.garden_rh_front_top
+                  - light.garden_rh_front_bottom
+              data:
+                effect: Movie
+            grid_options:
+              columns: 3
+              rows: 2
+          - type: button
+            name: Sunset Glow
+            icon: mdi:weather-sunset
+            show_state: false
+            tap_action:
+              action: perform-action
+              perform_action: light.turn_on
+              target:
+                entity_id:
+                  - light.garden_lh_back_top
+                  - light.garden_lh_back_bottom
+                  - light.garden_lh_front_top
+                  - light.garden_lh_front_bottom
+                  - light.garden_rh_back_top
+                  - light.garden_rh_back_bottom
+                  - light.garden_rh_front_top
+                  - light.garden_rh_front_bottom
+              data:
+                effect: Sunset Glow
+            grid_options:
+              columns: 3
+              rows: 2
+          - type: button
+            name: Aurora
+            icon: mdi:aurora
+            show_state: false
+            tap_action:
+              action: perform-action
+              perform_action: light.turn_on
+              target:
+                entity_id:
+                  - light.garden_lh_back_top
+                  - light.garden_lh_back_bottom
+                  - light.garden_lh_front_top
+                  - light.garden_lh_front_bottom
+                  - light.garden_rh_back_top
+                  - light.garden_rh_back_bottom
+                  - light.garden_rh_front_top
+                  - light.garden_rh_front_bottom
+              data:
+                effect: Aurora
+            grid_options:
+              columns: 3
+              rows: 2
+          - type: button
+            name: Candlelight
+            icon: mdi:candle
+            show_state: false
+            tap_action:
+              action: perform-action
+              perform_action: light.turn_on
+              target:
+                entity_id:
+                  - light.garden_lh_back_top
+                  - light.garden_lh_back_bottom
+                  - light.garden_lh_front_top
+                  - light.garden_lh_front_bottom
+                  - light.garden_rh_back_top
+                  - light.garden_rh_back_bottom
+                  - light.garden_rh_front_top
+                  - light.garden_rh_front_bottom
+              data:
+                effect: Candlelight
+            grid_options:
+              columns: 3
+              rows: 2
+          # Individual bulbs.
+          - type: tile
+            entity: light.garden_lh_back_top
+            name: LH back top
+            features_position: bottom
+            features:
+              - type: light-brightness
+            grid_options:
+              columns: 6
+          - type: tile
+            entity: light.garden_lh_back_bottom
+            name: LH back bottom
+            features_position: bottom
+            features:
+              - type: light-brightness
+            grid_options:
+              columns: 6
+          - type: tile
+            entity: light.garden_lh_front_top
+            name: LH front top
+            features_position: bottom
+            features:
+              - type: light-brightness
+            grid_options:
+              columns: 6
+          - type: tile
+            entity: light.garden_lh_front_bottom
+            name: LH front bottom
+            features_position: bottom
+            features:
+              - type: light-brightness
+            grid_options:
+              columns: 6
+          - type: tile
+            entity: light.garden_rh_back_top
+            name: RH back top
+            features_position: bottom
+            features:
+              - type: light-brightness
+            grid_options:
+              columns: 6
+          - type: tile
+            entity: light.garden_rh_back_bottom
+            name: RH back bottom
+            features_position: bottom
+            features:
+              - type: light-brightness
+            grid_options:
+              columns: 6
+          - type: tile
+            entity: light.garden_rh_front_top
+            name: RH front top
+            features_position: bottom
+            features:
+              - type: light-brightness
+            grid_options:
+              columns: 6
+          - type: tile
+            entity: light.garden_rh_front_bottom
+            name: RH front bottom
+            features_position: bottom
+            features:
+              - type: light-brightness
+            grid_options:
+              columns: 6
+      - type: grid
+        cards:
+          - type: heading
+            heading: Balcony
+            icon: mdi:balcony
+          # The whole area. Needs the light group helper light.balcony_lights.
+          - type: tile
+            entity: light.balcony_lights
+            name: All balcony
+            features_position: bottom
+            features:
+              - type: light-brightness
+              - type: light-color-temp
+            grid_options:
+              columns: full
+          # Sub-groups.
+          - type: tile
+            entity: light.balcony_top_lights
+            name: Balcony top
+            features_position: bottom
+            features:
+              - type: light-brightness
+            grid_options:
+              columns: 6
+          - type: tile
+            entity: light.balcony_bottom_lights
+            name: Balcony bottom
+            features_position: bottom
+            features:
+              - type: light-brightness
+            grid_options:
+              columns: 6
+          # Favourite scenes for every bulb in the area. To change one, edit
+          # its name, icon and effect; the effect must match a scene name in
+          # the light's scene list exactly.
+          - type: button
+            name: Movie
+            icon: mdi:movie-open
+            show_state: false
+            tap_action:
+              action: perform-action
+              perform_action: light.turn_on
+              target:
+                entity_id:
+                  - light.balcony_lh_top
+                  - light.balcony_lh_bottom
+                  - light.balcony_m_top
+                  - light.balcony_m_bottom
+                  - light.balcony_rh_top
+                  - light.balcony_rh_bottom
+              data:
+                effect: Movie
+            grid_options:
+              columns: 3
+              rows: 2
+          - type: button
+            name: Sunset Glow
+            icon: mdi:weather-sunset
+            show_state: false
+            tap_action:
+              action: perform-action
+              perform_action: light.turn_on
+              target:
+                entity_id:
+                  - light.balcony_lh_top
+                  - light.balcony_lh_bottom
+                  - light.balcony_m_top
+                  - light.balcony_m_bottom
+                  - light.balcony_rh_top
+                  - light.balcony_rh_bottom
+              data:
+                effect: Sunset Glow
+            grid_options:
+              columns: 3
+              rows: 2
+          - type: button
+            name: Aurora
+            icon: mdi:aurora
+            show_state: false
+            tap_action:
+              action: perform-action
+              perform_action: light.turn_on
+              target:
+                entity_id:
+                  - light.balcony_lh_top
+                  - light.balcony_lh_bottom
+                  - light.balcony_m_top
+                  - light.balcony_m_bottom
+                  - light.balcony_rh_top
+                  - light.balcony_rh_bottom
+              data:
+                effect: Aurora
+            grid_options:
+              columns: 3
+              rows: 2
+          - type: button
+            name: Candlelight
+            icon: mdi:candle
+            show_state: false
+            tap_action:
+              action: perform-action
+              perform_action: light.turn_on
+              target:
+                entity_id:
+                  - light.balcony_lh_top
+                  - light.balcony_lh_bottom
+                  - light.balcony_m_top
+                  - light.balcony_m_bottom
+                  - light.balcony_rh_top
+                  - light.balcony_rh_bottom
+              data:
+                effect: Candlelight
+            grid_options:
+              columns: 3
+              rows: 2
+          # Individual bulbs.
+          - type: tile
+            entity: light.balcony_lh_top
+            name: LH top
+            features_position: bottom
+            features:
+              - type: light-brightness
+            grid_options:
+              columns: 6
+          - type: tile
+            entity: light.balcony_lh_bottom
+            name: LH bottom
+            features_position: bottom
+            features:
+              - type: light-brightness
+            grid_options:
+              columns: 6
+          - type: tile
+            entity: light.balcony_m_top
+            name: Middle top
+            features_position: bottom
+            features:
+              - type: light-brightness
+            grid_options:
+              columns: 6
+          - type: tile
+            entity: light.balcony_m_bottom
+            name: Middle bottom
+            features_position: bottom
+            features:
+              - type: light-brightness
+            grid_options:
+              columns: 6
+          - type: tile
+            entity: light.balcony_rh_top
+            name: RH top
+            features_position: bottom
+            features:
+              - type: light-brightness
+            grid_options:
+              columns: 6
+          - type: tile
+            entity: light.balcony_rh_bottom
+            name: RH bottom
+            features_position: bottom
+            features:
+              - type: light-brightness
+            grid_options:
+              columns: 6
+      - type: grid
+        cards:
+          - type: heading
+            heading: Rooftop Cinema
+            icon: mdi:theater
+          # The whole area. Needs the light group helper light.theatre_lights.
+          - type: tile
+            entity: light.theatre_lights
+            name: All theatre
+            features_position: bottom
+            features:
+              - type: light-brightness
+              - type: light-color-temp
+            grid_options:
+              columns: full
+          # Sub-groups.
+          - type: tile
+            entity: light.screen_lights
+            name: Screen
+            features_position: bottom
+            features:
+              - type: light-brightness
+            grid_options:
+              columns: 6
+          - type: tile
+            entity: light.sofa_lights
+            name: Sofa
+            features_position: bottom
+            features:
+              - type: light-brightness
+            grid_options:
+              columns: 6
+          # Favourite scenes for every bulb in the area. To change one, edit
+          # its name, icon and effect; the effect must match a scene name in
+          # the light's scene list exactly.
+          - type: button
+            name: Movie
+            icon: mdi:movie-open
+            show_state: false
+            tap_action:
+              action: perform-action
+              perform_action: light.turn_on
+              target:
+                entity_id:
+                  - light.cinema_left
+                  - light.cinema_right
+                  - light.sofa_left
+                  - light.sofa_right
+              data:
+                effect: Movie
+            grid_options:
+              columns: 3
+              rows: 2
+          - type: button
+            name: Sunset Glow
+            icon: mdi:weather-sunset
+            show_state: false
+            tap_action:
+              action: perform-action
+              perform_action: light.turn_on
+              target:
+                entity_id:
+                  - light.cinema_left
+                  - light.cinema_right
+                  - light.sofa_left
+                  - light.sofa_right
+              data:
+                effect: Sunset Glow
+            grid_options:
+              columns: 3
+              rows: 2
+          - type: button
+            name: Aurora
+            icon: mdi:aurora
+            show_state: false
+            tap_action:
+              action: perform-action
+              perform_action: light.turn_on
+              target:
+                entity_id:
+                  - light.cinema_left
+                  - light.cinema_right
+                  - light.sofa_left
+                  - light.sofa_right
+              data:
+                effect: Aurora
+            grid_options:
+              columns: 3
+              rows: 2
+          - type: button
+            name: Candlelight
+            icon: mdi:candle
+            show_state: false
+            tap_action:
+              action: perform-action
+              perform_action: light.turn_on
+              target:
+                entity_id:
+                  - light.cinema_left
+                  - light.cinema_right
+                  - light.sofa_left
+                  - light.sofa_right
+              data:
+                effect: Candlelight
+            grid_options:
+              columns: 3
+              rows: 2
+          # Individual bulbs.
+          - type: tile
+            entity: light.cinema_left
+            name: Cinema Left
+            features_position: bottom
+            features:
+              - type: light-brightness
+            grid_options:
+              columns: 6
+          - type: tile
+            entity: light.cinema_right
+            name: Cinema Right
+            features_position: bottom
+            features:
+              - type: light-brightness
+            grid_options:
+              columns: 6
+          - type: tile
+            entity: light.sofa_left
+            name: Sofa Left
+            features_position: bottom
+            features:
+              - type: light-brightness
+            grid_options:
+              columns: 6
+          - type: tile
+            entity: light.sofa_right
+            name: Sofa Right
+            features_position: bottom
+            features:
+              - type: light-brightness
+            grid_options:
+              columns: 6
+      - type: grid
+        cards:
+          - type: heading
+            heading: Other Govee lights
+            icon: mdi:television-ambient-light
+          - type: tile
+            entity: light.apple_tv_backlight
+            name: Apple TV Backlight
+            features_position: bottom
+            features:
+              - type: light-brightness
+              - type: light-color-temp
+            grid_options:
+              columns: full
+          - type: tile
+            entity: light.floor_lamp
+            name: Floor Lamp
+            features_position: bottom
+            features:
+              - type: light-brightness
+              - type: light-color-temp
+            grid_options:
+              columns: full
